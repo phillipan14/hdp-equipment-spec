@@ -441,6 +441,7 @@ footer {
   <a href="#data-quality">Data Quality</a>
   <a href="#infra">Infrastructure</a>
   <a href="#phasing">Phased Rollout</a>
+  <a href="#portable">Portable / Wearable</a>
   <a href="#shopping">Shopping List</a>
 </div>
 </nav>
@@ -1560,6 +1561,390 @@ footer {
 
 <div class="callout">
   <strong>Payback period:</strong> At Phase 1 revenue of $100K/month, Phase 1 capex ($153K) pays back in <strong>under 2 months</strong>. The facility becomes cash-flow positive almost immediately — each subsequent phase is funded by revenue from the previous phase.
+</div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION: PORTABLE / WEARABLE DATA COLLECTION -->
+<!-- ============================================ -->
+<section id="portable">
+<h2><span class="num">05b</span> Portable / Wearable Kits</h2>
+<p>Deployable data collection rigs that operators wear in <strong>real-world settings</strong> — kitchens, restaurants, retail floors, warehouses, homes. No robot arm required. Captures <strong>egocentric human demonstration data</strong> that trains VLA models on real environments, not just lab setups.</p>
+
+<div class="callout info">
+  <strong>Why this matters:</strong> Lab teleop data is collected in controlled environments. But robots will deploy in messy, variable real-world settings. Egocentric wearable data from actual kitchens, stores, and homes is extremely valuable because it captures the environment variability that lab data misses. Several companies (especially home robotics firms like 1X, Hello Robot) are actively buying this data.
+</div>
+
+<h3>Level 1: Vision-Only (Head-Mounted Camera)</h3>
+<p>Cheapest, fastest to deploy. Operator wears a camera rig and performs tasks naturally. Captures egocentric RGB + depth perspective.</p>
+
+<div class="card-grid">
+  <div class="card recommended">
+    <div class="card-title">GoPro Hero 13 Black</div>
+    <div class="card-subtitle">Action camera — head/chest mount</div>
+    <div class="price">$400 <span class="unit">/unit</span></div>
+    <div class="specs">
+      <span><span class="label">Resolution:</span> <span class="val">5.3K @ 60fps, 4K @ 120fps</span></span>
+      <span><span class="label">FOV:</span> <span class="val">SuperView (widest), HyperSmooth stabilization</span></span>
+      <span><span class="label">Battery:</span> <span class="val">~2.5 hrs continuous recording</span></span>
+      <span><span class="label">Weight:</span> <span class="val">154g</span></span>
+      <span><span class="label">Mount:</span> <span class="val">Head strap ($20) or chest harness ($40)</span></span>
+    </div>
+    <a class="buy-link" href="https://gopro.com/" target="_blank">GoPro Store →</a>
+  </div>
+
+  <div class="card recommended">
+    <div class="card-title">Intel RealSense D405 (head-mounted)</div>
+    <div class="card-subtitle">Compact depth camera for egocentric view</div>
+    <div class="price">$334 <span class="unit">/unit</span></div>
+    <div class="specs">
+      <span><span class="label">Depth + RGB:</span> <span class="val">Close-range stereo depth (7cm–50cm)</span></span>
+      <span><span class="label">Size:</span> <span class="val">42×42×23mm — small enough for head mount</span></span>
+      <span><span class="label">Weight:</span> <span class="val">~30g (sensor only)</span></span>
+      <span><span class="label">Use:</span> <span class="val">Captures depth of hands/objects being manipulated</span></span>
+      <span><span class="label">Note:</span> <span class="val">Needs tethered compute (Jetson in backpack/belt)</span></span>
+    </div>
+    <a class="buy-link" href="https://store.intelrealsense.com/" target="_blank">Intel RealSense Store →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Meta Ray-Ban Smart Glasses</div>
+    <div class="card-subtitle">Inconspicuous egocentric capture</div>
+    <div class="price">$299 <span class="unit">/unit</span></div>
+    <div class="specs">
+      <span><span class="label">Camera:</span> <span class="val">12MP photo, 1080p @ 30fps video</span></span>
+      <span><span class="label">Audio:</span> <span class="val">5 built-in microphones + speakers</span></span>
+      <span><span class="label">Battery:</span> <span class="val">~4 hours mixed use</span></span>
+      <span><span class="label">Advantage:</span> <span class="val">Looks like normal glasses — non-intrusive in public settings</span></span>
+      <span><span class="label">Limitation:</span> <span class="val">No depth sensor, 1080p only</span></span>
+    </div>
+    <a class="buy-link" href="https://www.meta.com/smart-glasses/" target="_blank">Meta Store →</a>
+  </div>
+</div>
+
+<div class="calculator">
+  <h4>Level 1 Kit: Vision-Only Wearable</h4>
+  <div class="calc-row">
+    <span class="label">GoPro Hero 13 + head strap</span>
+    <span class="val">$420</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">OR: RealSense D405 + 3D-printed head mount</span>
+    <span class="val">$350</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">256GB microSD card</span>
+    <span class="val">$25</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Extra batteries (GoPro) or power bank (RealSense)</span>
+    <span class="val">$40</span>
+  </div>
+  <div class="calc-row total">
+    <span class="label">Level 1 Per-Kit Cost</span>
+    <span class="val">$390–$485</span>
+  </div>
+</div>
+
+<h3>Level 2: Vision + Hand Tracking (Head + Wrist Cameras)</h3>
+<p>Adds wrist-mounted cameras for detailed hand/manipulation view. Captures both the scene (what the operator sees) and the hands (what they're doing). This is the <strong>UMI-style</strong> approach.</p>
+
+<div class="card-grid">
+  <div class="card recommended">
+    <div class="card-title">UMI Gripper / Wrist Camera Rig</div>
+    <div class="card-subtitle">Stanford open-source wrist capture system</div>
+    <div class="price">$200–400 <span class="unit">DIY build</span></div>
+    <div class="specs">
+      <span><span class="label">Design:</span> <span class="val">3D-printed wrist mount + GoPro/webcam</span></span>
+      <span><span class="label">Captures:</span> <span class="val">In-hand object view, gripper state</span></span>
+      <span><span class="label">Tracking:</span> <span class="val">ArUco markers for hand position in world frame</span></span>
+      <span><span class="label">Software:</span> <span class="val">UMI framework — open source</span></span>
+    </div>
+    <a class="buy-link" href="https://umi-gripper.github.io/" target="_blank">UMI Project →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Logitech BRIO 4K (×2, wrist-mounted)</div>
+    <div class="card-subtitle">Compact USB webcam for wrist view</div>
+    <div class="price">$130 <span class="unit">/unit</span></div>
+    <div class="specs">
+      <span><span class="label">Resolution:</span> <span class="val">4K @ 30fps, 1080p @ 60fps</span></span>
+      <span><span class="label">FOV:</span> <span class="val">90° diagonal (adjustable)</span></span>
+      <span><span class="label">Weight:</span> <span class="val">63g — light enough for wrist mount</span></span>
+      <span><span class="label">Use:</span> <span class="val">One per wrist, strapped with velcro band</span></span>
+    </div>
+    <a class="buy-link" href="https://www.logitech.com/en-us/products/webcams/brio-4k-hdr-webcam.html" target="_blank">Logitech →</a>
+  </div>
+</div>
+
+<div class="calculator">
+  <h4>Level 2 Kit: Vision + Wrist Cameras</h4>
+  <div class="calc-row">
+    <span class="label">Head camera (GoPro 13 + strap)</span>
+    <span class="val">$420</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">2× Wrist cameras (Logitech BRIO or RealSense D405)</span>
+    <span class="val">$260–$668</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Jetson Orin Nano (belt-mounted compute)</span>
+    <span class="val">$249</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">USB-C hub + cables + wrist mounts</span>
+    <span class="val">$80</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Battery pack (for Jetson, 4+ hrs)</span>
+    <span class="val">$60</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Small backpack / belt harness</span>
+    <span class="val">$40</span>
+  </div>
+  <div class="calc-row total">
+    <span class="label">Level 2 Per-Kit Cost</span>
+    <span class="val">$1,109–$1,517</span>
+  </div>
+</div>
+
+<h3>Level 3: Vision + Motion Capture (Hand + Body Tracking)</h3>
+<p>Adds motion capture gloves and body tracking. Captures <strong>full hand pose, finger articulation, and body kinematics</strong> alongside video. This is what Mark's company (Beijing integrator) builds integrated solutions for.</p>
+
+<div class="card-grid">
+  <div class="card recommended">
+    <div class="card-title">Manus Quantum Metagloves</div>
+    <div class="card-subtitle">Motion capture data gloves — industry standard</div>
+    <div class="price">$5,000–8,000 <span class="unit">/pair (quote required)</span></div>
+    <div class="specs">
+      <span><span class="label">Tracking:</span> <span class="val">Full finger articulation (14 joints per hand)</span></span>
+      <span><span class="label">IMU:</span> <span class="val">Per-finger IMU for absolute orientation</span></span>
+      <span><span class="label">Rate:</span> <span class="val">120Hz</span></span>
+      <span><span class="label">Wireless:</span> <span class="val">Yes — Bluetooth/Wi-Fi</span></span>
+      <span><span class="label">Note:</span> <span class="val">No tactile sensing — motion only (per Mark's confirmation)</span></span>
+    </div>
+    <a class="buy-link" href="https://www.manus-meta.com/" target="_blank">Manus →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Rokoko Smartgloves</div>
+    <div class="card-subtitle">Affordable finger motion capture</div>
+    <div class="price">$1,500 <span class="unit">/pair</span></div>
+    <div class="specs">
+      <span><span class="label">Tracking:</span> <span class="val">Per-finger bend + splay</span></span>
+      <span><span class="label">Rate:</span> <span class="val">60Hz</span></span>
+      <span><span class="label">Software:</span> <span class="val">Rokoko Studio (free tier available)</span></span>
+      <span><span class="label">Advantage:</span> <span class="val">Much cheaper than Manus, good enough for many tasks</span></span>
+    </div>
+    <a class="buy-link" href="https://www.rokoko.com/products/smartgloves" target="_blank">Rokoko →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Rokoko Smartsuit Pro II</div>
+    <div class="card-subtitle">Full body motion capture suit</div>
+    <div class="price">$2,500 <span class="unit">/suit</span></div>
+    <div class="specs">
+      <span><span class="label">Sensors:</span> <span class="val">19 IMU sensors across body</span></span>
+      <span><span class="label">Tracking:</span> <span class="val">Full body pose (joint positions + orientations)</span></span>
+      <span><span class="label">Rate:</span> <span class="val">100Hz</span></span>
+      <span><span class="label">Battery:</span> <span class="val">~7 hours</span></span>
+      <span><span class="label">Use:</span> <span class="val">Captures how humans move through space while doing tasks</span></span>
+    </div>
+    <a class="buy-link" href="https://www.rokoko.com/products/smartsuit-pro" target="_blank">Rokoko →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Apple Vision Pro</div>
+    <div class="card-subtitle">High-fidelity spatial + hand tracking headset</div>
+    <div class="price">$3,499 <span class="unit">/unit</span></div>
+    <div class="specs">
+      <span><span class="label">Cameras:</span> <span class="val">12 cameras + 5 sensors + LiDAR</span></span>
+      <span><span class="label">Hand Tracking:</span> <span class="val">Sub-mm finger tracking, no gloves needed</span></span>
+      <span><span class="label">Spatial:</span> <span class="val">Full room mapping + object recognition</span></span>
+      <span><span class="label">Advantage:</span> <span class="val">All-in-one spatial + hand capture, no external hardware</span></span>
+      <span><span class="label">Limitation:</span> <span class="val">2 hour battery, expensive, heavy for 8hr shifts</span></span>
+    </div>
+    <a class="buy-link" href="https://www.apple.com/apple-vision-pro/" target="_blank">Apple →</a>
+  </div>
+</div>
+
+<div class="calculator">
+  <h4>Level 3 Kit: Vision + Motion Capture</h4>
+  <div class="calc-row">
+    <span class="label">Head camera (GoPro 13 + strap)</span>
+    <span class="val">$420</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">2× Wrist cameras (RealSense D405)</span>
+    <span class="val">$668</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Motion capture gloves (Rokoko Smartgloves)</span>
+    <span class="val">$1,500</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Body suit (Rokoko Smartsuit Pro II) — optional</span>
+    <span class="val">$2,500</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Jetson Orin Nano (belt compute) + battery</span>
+    <span class="val">$309</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Backpack harness + cabling</span>
+    <span class="val">$100</span>
+  </div>
+  <div class="calc-row total">
+    <span class="label">Level 3 Per-Kit Cost (with body suit)</span>
+    <span class="val">$5,497</span>
+  </div>
+  <div class="calc-row" style="border-bottom: none;">
+    <span class="label">Level 3 Per-Kit Cost (without body suit)</span>
+    <span class="val">$2,997</span>
+  </div>
+</div>
+
+<h3>Level 4: Full Multimodal (Vision + Motion + Tactile + Audio)</h3>
+<p>Maximum sensor density. Adds <strong>tactile sensing gloves, spatial audio, and environmental sensors</strong>. Produces the highest-value egocentric data — commands $200–500/hr pricing.</p>
+
+<div class="card-grid">
+  <div class="card recommended">
+    <div class="card-title">Custom Tactile Data Glove</div>
+    <div class="card-subtitle">Motion capture + pressure sensing (via Mark's partner)</div>
+    <div class="price">TBD <span class="unit">(quote from Mark's partner)</span></div>
+    <div class="specs">
+      <span><span class="label">Motion:</span> <span class="val">Per-finger articulation tracking</span></span>
+      <span><span class="label">Tactile:</span> <span class="val">Pressure/force sensing across palm + fingertips</span></span>
+      <span><span class="label">Combined:</span> <span class="val">Both mocap + touch in single glove</span></span>
+      <span><span class="label">Status:</span> <span class="val">Mark (Beijing integrator) building this — not public yet</span></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Pressure Profile Systems FingerTPS</div>
+    <div class="card-subtitle">Thin-film force sensors for fingertips</div>
+    <div class="price">$2,000–4,000 <span class="unit">/set</span></div>
+    <div class="specs">
+      <span><span class="label">Type:</span> <span class="val">Capacitive pressure sensor arrays</span></span>
+      <span><span class="label">Placement:</span> <span class="val">Stick-on pads for each fingertip</span></span>
+      <span><span class="label">Output:</span> <span class="val">Force distribution per finger</span></span>
+      <span><span class="label">Advantage:</span> <span class="val">Can be worn over/under existing gloves</span></span>
+    </div>
+    <a class="buy-link" href="https://pressureprofile.com/body-pressure-mapping" target="_blank">PPS →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Spatial Audio Rig (Binaural)</div>
+    <div class="card-subtitle">Directional audio capture</div>
+    <div class="price">$200–500 <span class="unit">/setup</span></div>
+    <div class="specs">
+      <span><span class="label">Option A:</span> <span class="val">Rode VideoMicro II ($80) — mono, head-mounted</span></span>
+      <span><span class="label">Option B:</span> <span class="val">3Dio Free Space (binaural, $200) — ear-level stereo</span></span>
+      <span><span class="label">Use:</span> <span class="val">Capture sound of manipulation (pouring, scrubbing, cutting)</span></span>
+      <span><span class="label">Value:</span> <span class="val">Audio is predictive of task state — adds to VLA model training</span></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Env Sensor Module (Temp + Humidity)</div>
+    <div class="card-subtitle">Environmental context capture</div>
+    <div class="price">$15–30 <span class="unit">/module</span></div>
+    <div class="specs">
+      <span><span class="label">Sensor:</span> <span class="val">BME680 (temp + humidity + pressure + gas)</span></span>
+      <span><span class="label">Rate:</span> <span class="val">1Hz (environmental changes are slow)</span></span>
+      <span><span class="label">Interface:</span> <span class="val">I2C to Jetson/Arduino</span></span>
+      <span><span class="label">Use:</span> <span class="val">Context metadata — kitchen vs outdoor vs warehouse</span></span>
+    </div>
+    <a class="buy-link" href="https://www.adafruit.com/product/3660" target="_blank">Adafruit →</a>
+  </div>
+</div>
+
+<div class="calculator">
+  <h4>Level 4 Kit: Full Multimodal Wearable</h4>
+  <div class="calc-row">
+    <span class="label">Head camera (GoPro 13 + strap)</span>
+    <span class="val">$420</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">2× Wrist cameras (RealSense D405)</span>
+    <span class="val">$668</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Manus Quantum Metagloves (motion capture)</span>
+    <span class="val">$6,000</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Fingertip force sensors (PPS FingerTPS)</span>
+    <span class="val">$3,000</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Binaural audio rig</span>
+    <span class="val">$200</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Env sensor module (BME680)</span>
+    <span class="val">$20</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">Jetson AGX Orin (backpack compute — multi-stream)</span>
+    <span class="val">$1,999</span>
+  </div>
+  <div class="calc-row">
+    <span class="label">4TB NVMe + battery pack + backpack harness</span>
+    <span class="val">$400</span>
+  </div>
+  <div class="calc-row total">
+    <span class="label">Level 4 Per-Kit Cost</span>
+    <span class="val">$12,707</span>
+  </div>
+</div>
+
+<h3>Portable Kit Comparison</h3>
+<table>
+  <tr>
+    <th>Level</th>
+    <th>Sensors</th>
+    <th>Cost/Kit</th>
+    <th>Data Value</th>
+    <th>Best For</th>
+  </tr>
+  <tr>
+    <td><strong>L1: Vision-Only</strong></td>
+    <td>Head camera (RGB)</td>
+    <td class="text-accent">$390–$485</td>
+    <td>$10–30/hr</td>
+    <td>Scene understanding, navigation, object recognition</td>
+  </tr>
+  <tr>
+    <td><strong>L2: Vision + Wrist</strong></td>
+    <td>Head + 2× wrist cameras + depth</td>
+    <td class="text-accent">$1,109–$1,517</td>
+    <td>$30–80/hr</td>
+    <td>UMI-style manipulation, grasping demonstrations</td>
+  </tr>
+  <tr>
+    <td><strong>L3: + Motion Capture</strong></td>
+    <td>L2 + mocap gloves + body suit</td>
+    <td class="text-accent">$2,997–$5,497</td>
+    <td>$80–200/hr</td>
+    <td>Dexterous hand training, full-body humanoid data</td>
+  </tr>
+  <tr>
+    <td><strong>L4: Full Multimodal</strong></td>
+    <td>L3 + tactile + audio + env</td>
+    <td class="text-orange">$12,707</td>
+    <td>$200–500/hr</td>
+    <td>Premium deployment-grade data, dexterous manipulation</td>
+  </tr>
+</table>
+
+<div class="callout">
+  <strong>Deployment scenarios:</strong> L1 kits are perfect for quick deployment in restaurants, retail stores, and homes — operators just wear a camera and go about tasks naturally. L2–L3 are for structured data collection shifts where operators perform specific manipulation tasks. L4 is for high-value contracts where customers need the richest possible data.
+</div>
+
+<div class="callout warning">
+  <strong>Mark's company (Beijing integrator):</strong> They're building a combined motion-capture + tactile-sensing glove that isn't publicly available yet. This could be the best-value L3/L4 option if priced competitively. Follow up on WeChat for specs and pricing. They also mentioned having partners who can customize solutions — potentially source L2–L4 kits through them at Chinese manufacturing prices.
 </div>
 </section>
 

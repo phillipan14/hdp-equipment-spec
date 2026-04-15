@@ -3,46 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HDP Equipment Specification — Human Data Partnership</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Human Data Partnership</title>
+<meta name="description" content="Real-world video data for training robotics foundation models. We source the facilities. We deploy the operators. We deliver to your spec.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #09090b;
-  --surface: rgba(255,255,255,0.025);
-  --surface2: rgba(255,255,255,0.05);
-  --border: rgba(255,255,255,0.06);
-  --border-hover: rgba(255,255,255,0.12);
-  --text: rgba(255,255,255,0.92);
-  --text-dim: rgba(255,255,255,0.42);
-  --text-mid: rgba(255,255,255,0.6);
+  --text: rgba(255,255,255,0.90);
+  --text-dim: rgba(255,255,255,0.38);
+  --text-mid: rgba(255,255,255,0.55);
   --accent: #00d4aa;
-  --accent-dim: rgba(0,212,170,0.15);
-  --accent2: #0088ff;
-  --orange: #ff6b35;
-  --red: #ff4466;
-  --yellow: #ffd644;
-  --green: #44dd88;
-  --purple: #8866ff;
-  --radius: 16px;
-  --radius-sm: 10px;
+  --border: rgba(255,255,255,0.06);
+  --radius: 12px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-.container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+.wrap { max-width: 680px; margin: 0 auto; padding: 0 28px; }
 
-/* ---- HERO HEADER ---- */
+/* ---- HERO ---- */
 header {
   min-height: 100svh;
   display: flex;
@@ -50,2452 +37,483 @@ header {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid var(--border);
 }
-header::before {
-  content: '';
+#ascii-canvas {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,212,170,0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,136,255,0.05), transparent);
-  pointer-events: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
 }
-header .hero-inner {
+.hero {
   position: relative;
   z-index: 1;
   text-align: center;
-  max-width: 820px;
-  padding: 0 32px;
+  padding: 0 20px;
 }
-header .badge {
-  display: inline-block;
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 32px;
-  opacity: 0;
-  animation: blurIn 0.8s 0.2s ease-out forwards;
-}
-header .badge::before,
-header .badge::after {
-  content: '';
-  display: inline-block;
-  width: 48px;
-  height: 1px;
-  background: rgba(255,255,255,0.1);
-  vertical-align: middle;
-  margin: 0 16px;
-}
-header h1 {
-  font-size: clamp(36px, 6vw, 72px);
+.hero h1 {
+  font-size: clamp(32px, 5.5vw, 56px);
   font-weight: 300;
   letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin-bottom: 24px;
-  color: rgba(255,255,255,0.95);
+  line-height: 1.15;
+  margin-bottom: 20px;
   opacity: 0;
-  animation: blurIn 0.8s 0.4s ease-out forwards;
+  animation: fadeUp 0.8s 0.2s ease-out forwards;
 }
-header .subtitle {
-  font-size: 17px;
-  font-weight: 400;
+.hero p {
+  font-size: 16px;
   color: var(--text-dim);
-  max-width: 600px;
-  margin: 0 auto 40px;
+  max-width: 440px;
+  margin: 0 auto;
   line-height: 1.7;
   opacity: 0;
-  animation: blurIn 0.8s 0.6s ease-out forwards;
+  animation: fadeUp 0.8s 0.5s ease-out forwards;
 }
-header .meta {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  flex-wrap: wrap;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  color: var(--text-dim);
-  opacity: 0;
-  animation: blurIn 0.8s 0.8s ease-out forwards;
-}
-header .meta span { display: flex; align-items: center; gap: 6px; }
-header .scroll-hint {
+.scroll-hint {
   position: absolute;
-  bottom: 40px;
+  bottom: 48px;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: blurIn 0.8s 1.2s ease-out forwards;
-}
-header .scroll-line {
   width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent);
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  animation: fadeUp 0.8s 1s ease-out forwards;
 }
 
-/* Blur-in animation */
-@keyframes blurIn {
-  from { opacity: 0; filter: blur(8px); transform: translateY(8px); }
-  to { opacity: 1; filter: blur(0); transform: translateY(0); }
-}
-
-/* ---- NAVIGATION ---- */
-nav.toc {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(9,9,11,0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 0;
-  overflow-x: auto;
-}
-nav.toc .container {
-  display: flex;
-  gap: 0;
-  flex-wrap: nowrap;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-nav.toc a {
-  color: var(--text-dim);
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  padding: 14px 16px;
-  white-space: nowrap;
-  transition: color 0.3s, background 0.3s;
-  border-bottom: 2px solid transparent;
-}
-nav.toc a:hover {
-  color: var(--text);
-  background: rgba(255,255,255,0.03);
-  border-bottom-color: var(--accent);
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ---- SECTIONS ---- */
 section {
   padding: 80px 0;
-  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
 }
-section:last-child { border-bottom: none; }
 
-/* Scroll reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
+.label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 24px;
 }
 
 h2 {
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  letter-spacing: 0.02em;
-}
-h2 .num {
-  font-size: 10px;
-  color: var(--text-dim);
-  font-weight: 500;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-}
-h2::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-  margin-left: 8px;
-}
-
-/* Section title (the real heading) - using adjacent sibling */
-h2 + p:first-of-type,
-h2 + .stat-grid,
-h2 + div {
-  margin-top: 0;
-}
-
-h3 {
   font-size: 22px;
   font-weight: 300;
-  margin: 48px 0 16px;
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-h3::before {
-  content: '';
-  display: block;
-  width: 32px;
-  height: 1px;
-  background: rgba(255,255,255,0.15);
-  margin-bottom: 16px;
-}
-
-p {
-  margin-bottom: 16px;
-  color: var(--text-dim);
-  font-size: 15px;
-  line-height: 1.75;
-}
-p strong { color: var(--text); font-weight: 600; }
-
-ul { color: var(--text-dim); }
-li { line-height: 1.75; }
-
-/* ---- GLASS CARDS ---- */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-  margin: 24px 0;
-}
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  transition: all 0.4s ease;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.card:hover {
-  border-color: var(--border-hover);
-  background: rgba(255,255,255,0.04);
-  transform: translateY(-2px);
-}
-.card .card-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 4px;
-  letter-spacing: -0.01em;
-}
-.card .card-subtitle {
-  font-size: 12px;
-  color: var(--text-dim);
-  margin-bottom: 16px;
-  font-weight: 400;
-}
-.card .price {
-  font-size: 24px;
-  font-weight: 300;
-  color: var(--accent);
   letter-spacing: -0.02em;
-}
-.card .price .unit {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--text-dim);
-  letter-spacing: 0;
-}
-.card .specs {
-  margin-top: 16px;
-  font-size: 13px;
-  color: var(--text-dim);
-  line-height: 1.9;
-}
-.card .specs span { display: block; }
-.card .specs .label { color: var(--text-dim); font-weight: 400; }
-.card .specs .val { color: var(--text-mid); font-weight: 500; }
-.card .buy-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 16px;
-  font-size: 12px;
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  transition: color 0.2s;
-}
-.card .buy-link:hover { color: #fff; }
-
-/* Recommended */
-.card.recommended {
-  border-color: rgba(0,212,170,0.2);
-  background: rgba(0,212,170,0.03);
-}
-.card.recommended:hover {
-  border-color: rgba(0,212,170,0.35);
-  background: rgba(0,212,170,0.06);
-}
-.card.recommended::before {
-  content: 'RECOMMENDED';
-  display: inline-block;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  color: var(--accent);
-  background: rgba(0,212,170,0.1);
-  padding: 4px 10px;
-  border-radius: 4px;
-  margin-bottom: 12px;
-  border: 1px solid rgba(0,212,170,0.15);
+  line-height: 1.4;
+  margin-bottom: 16px;
+  color: var(--text);
 }
 
-/* ---- TABLES ---- */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 13px;
-}
-th {
-  text-align: left;
-  padding: 12px 16px;
-  background: rgba(255,255,255,0.02);
-  color: var(--text-dim);
-  font-weight: 500;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  border-bottom: 1px solid var(--border);
-}
-td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text-mid);
-  font-size: 13px;
-}
-tr:hover td { background: rgba(255,255,255,0.015); }
-td a { color: var(--accent); text-decoration: none; font-weight: 500; }
-td a:hover { color: #fff; }
-.text-right { text-align: right; }
-.text-accent { color: var(--accent); font-weight: 600; }
-.text-orange { color: var(--orange); font-weight: 600; }
-.text-dim { color: var(--text-dim); }
+p { font-size: 15px; color: var(--text-dim); line-height: 1.75; margin-bottom: 14px; }
+p strong { color: var(--text); font-weight: 500; }
+p:last-child { margin-bottom: 0; }
 
-/* ---- COLLAPSIBLE ---- */
-details {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin: 20px 0;
-  overflow: hidden;
-  transition: border-color 0.3s;
-}
-details[open] { border-color: rgba(255,255,255,0.1); }
-summary {
-  padding: 20px 24px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  user-select: none;
+/* ---- LIST ---- */
+.items {
+  margin-top: 32px;
   list-style: none;
-  color: var(--text);
-  transition: background 0.2s;
-  letter-spacing: -0.01em;
 }
-summary:hover { background: rgba(255,255,255,0.02); }
-summary::-webkit-details-marker { display: none; }
-summary::after {
-  content: '+';
-  font-size: 18px;
-  color: var(--text-dim);
-  font-weight: 300;
-  transition: transform 0.2s;
-  width: 24px;
-  text-align: center;
+.items li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.6;
 }
-details[open] summary::after { content: '\2212'; }
-details .detail-content { padding: 0 24px 24px; }
+.items li:first-child { border-top: 1px solid var(--border); }
+.items li strong { color: var(--text); font-weight: 500; }
 
-/* ---- PHASE TIMELINE ---- */
-.phase-bar {
-  display: flex;
-  gap: 2px;
-  margin: 32px 0;
-  border-radius: var(--radius);
+/* ---- MARQUEE ---- */
+.marquee-wrap {
   overflow: hidden;
+  margin: 32px -28px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 60px, black calc(100% - 60px), transparent);
+  mask-image: linear-gradient(to right, transparent, black 60px, black calc(100% - 60px), transparent);
 }
-.phase-bar .phase {
-  flex: 1;
-  padding: 24px;
-  text-align: center;
-  border: 1px solid var(--border);
-  transition: background 0.3s;
-}
-.phase-bar .phase:first-child { border-radius: var(--radius) 0 0 var(--radius); }
-.phase-bar .phase:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
-.phase-bar .phase h4 { font-size: 13px; font-weight: 500; margin-bottom: 4px; letter-spacing: 0.02em; }
-.phase-bar .phase .timeline { font-size: 11px; opacity: 0.5; font-weight: 400; }
-.phase-bar .phase .cost { font-size: 22px; font-weight: 300; margin-top: 12px; letter-spacing: -0.02em; }
-.phase-1 { background: rgba(0,212,170,0.06); color: var(--accent); border-color: rgba(0,212,170,0.1) !important; }
-.phase-2 { background: rgba(0,136,255,0.06); color: var(--accent2); border-color: rgba(0,136,255,0.1) !important; }
-.phase-3 { background: rgba(136,102,255,0.06); color: var(--purple); border-color: rgba(136,102,255,0.1) !important; }
-
-/* ---- STAT BOXES ---- */
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-  margin: 28px 0;
-}
-.stat-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px 24px;
-  text-align: center;
-  transition: border-color 0.3s, background 0.3s;
-}
-.stat-box:hover {
-  border-color: var(--border-hover);
-  background: rgba(255,255,255,0.04);
-}
-.stat-box .stat-val {
-  font-size: 32px;
-  font-weight: 300;
-  color: var(--accent);
-  letter-spacing: -0.02em;
-}
-.stat-box .stat-label {
-  font-size: 10px;
-  color: var(--text-dim);
-  margin-top: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 500;
-}
-
-/* ---- CALLOUTS ---- */
-.callout {
-  background: rgba(0,212,170,0.04);
-  border: 1px solid rgba(0,212,170,0.08);
-  border-left: 3px solid rgba(0,212,170,0.4);
-  padding: 20px 24px;
-  border-radius: 0 var(--radius) var(--radius) 0;
-  margin: 24px 0;
-  font-size: 14px;
-  line-height: 1.7;
-}
-.callout.warning {
-  background: rgba(255,107,53,0.04);
-  border-color: rgba(255,107,53,0.08);
-  border-left-color: rgba(255,107,53,0.4);
-}
-.callout.info {
-  background: rgba(0,136,255,0.04);
-  border-color: rgba(0,136,255,0.08);
-  border-left-color: rgba(0,136,255,0.4);
-}
-.callout strong { color: var(--text); }
-
-/* ---- CALCULATOR ---- */
-.calculator {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px;
-  margin: 24px 0;
-}
-.calculator h4 {
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 20px;
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-.calc-row {
+.marquee-track {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  font-size: 14px;
+  gap: 12px;
+  width: max-content;
+  animation: marquee 25s linear infinite;
 }
-.calc-row:last-child { border-bottom: none; }
-.calc-row.total {
-  border-top: 1px solid rgba(0,212,170,0.2);
-  margin-top: 12px;
-  padding-top: 16px;
-  font-weight: 600;
-  font-size: 15px;
-}
-.calc-row.total .val { color: var(--accent); font-size: 20px; font-weight: 300; letter-spacing: -0.02em; }
-.calc-row .label { color: var(--text-dim); font-weight: 400; }
-.calc-row .val { color: var(--text); font-weight: 500; }
-.calc-row .qty { color: var(--text-dim); font-size: 11px; margin-left: 8px; font-weight: 400; }
-
-/* ---- SLIDER ---- */
-.slider-group {
-  margin: 20px 0;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.slider-group label {
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-item {
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
   font-size: 13px;
-  color: var(--text-dim);
-  min-width: 140px;
-  font-weight: 400;
+  font-weight: 500;
+  color: var(--text-mid);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: border-color 0.3s, color 0.3s;
 }
-.slider-group input[type=range] {
-  flex: 1;
-  accent-color: var(--accent);
-  height: 4px;
-  appearance: none;
-  -webkit-appearance: none;
-  background: rgba(255,255,255,0.08);
-  border-radius: 2px;
+.marquee-item:hover {
+  border-color: rgba(255,255,255,0.15);
+  color: var(--text);
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ---- FORM ---- */
+.form-section {
+  padding: 80px 0 100px;
+  border-top: 1px solid var(--border);
+}
+.form-section h2 { margin-bottom: 8px; }
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 28px;
+}
+.form-grid .full { grid-column: 1 / -1; }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
   outline: none;
-}
-.slider-group input[type=range]::-webkit-slider-thumb {
-  appearance: none;
+  transition: border-color 0.2s;
   -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--accent);
-  cursor: pointer;
-  border: 2px solid var(--bg);
-  box-shadow: 0 0 8px rgba(0,212,170,0.3);
+  appearance: none;
 }
-.slider-group .slider-val {
-  font-size: 20px;
-  font-weight: 300;
-  color: var(--accent);
-  min-width: 50px;
-  text-align: right;
-  letter-spacing: -0.02em;
+.form-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none'%3E%3Cpath d='M3 5l3 3 3-3' stroke='rgba(255,255,255,0.38)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.form-field select option { background: #18181b; color: var(--text); }
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: var(--text-dim); }
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus { border-color: rgba(255,255,255,0.15); }
+.form-field textarea { resize: vertical; min-height: 80px; }
+.form-btn {
+  margin-top: 8px;
+  padding: 13px 32px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.2s;
+}
+.form-btn:hover { background: #fff; }
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
 }
 
 /* ---- FOOTER ---- */
 footer {
-  padding: 60px 0;
+  padding: 40px 0;
   text-align: center;
-  color: var(--text-dim);
-  font-size: 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
   border-top: 1px solid var(--border);
-  letter-spacing: 0.02em;
 }
-footer p { color: var(--text-dim); font-size: 12px; }
-footer strong { color: var(--text-mid); }
 
 /* ---- RESPONSIVE ---- */
-@media (max-width: 768px) {
-  .container { padding: 0 20px; }
-  header { min-height: 80svh; }
-  header h1 { font-size: 32px; }
-  header .meta { gap: 16px; }
-  .card-grid { grid-template-columns: 1fr; }
-  .stat-grid { grid-template-columns: repeat(2, 1fr); }
-  .phase-bar { flex-direction: column; }
-  .phase-bar .phase:first-child { border-radius: var(--radius) var(--radius) 0 0; }
-  .phase-bar .phase:last-child { border-radius: 0 0 var(--radius) var(--radius); }
-  .calc-row { font-size: 13px; }
-  section { padding: 48px 0; }
-  nav.toc a { font-size: 11px; padding: 12px 10px; }
-  h3 { font-size: 18px; margin-top: 36px; }
-  .slider-group { flex-wrap: wrap; }
-  .slider-group label { min-width: 100%; }
+@media (max-width: 600px) {
+  .wrap { padding: 0 20px; }
+  section { padding: 56px 0; }
+  .form-section { padding: 56px 0 80px; }
+  .hero h1 { font-size: 28px; }
+  .hero p { font-size: 15px; max-width: 340px; }
+  h2 { font-size: 19px; }
+  .label { font-size: 9px; margin-bottom: 18px; }
+  .items li { font-size: 13px; padding: 12px 0; }
+  .form-grid { grid-template-columns: 1fr; gap: 10px; }
+  .form-btn { width: 100%; }
+  #ascii-canvas { font-size: 10px; }
+  .marquee-wrap { margin: 24px -20px 0; }
+  .scroll-hint { bottom: 32px; }
+  footer { padding: 32px 0; }
 }
-
-@media (max-width: 400px) {
-  .stat-grid { grid-template-columns: 1fr; }
-  header .badge::before, header .badge::after { width: 24px; }
+@media (max-width: 380px) {
+  .hero h1 { font-size: 24px; }
+  .hero p { font-size: 14px; }
+  h2 { font-size: 17px; }
+  #ascii-canvas { font-size: 8px; }
 }
 </style>
 </head>
 <body>
 
-<!-- HERO HEADER -->
-<header>
-<div class="hero-inner">
-  <div class="badge">Equipment Specification</div>
-  <h1>Human Data<br>Partnership</h1>
-  <p class="subtitle">Robotics teleoperation data collection facility. 300-450 operator stations across Southeast Asia.</p>
-  <div class="meta">
-    <span>March 2026</span>
-    <span>Planning Phase</span>
-    <span>Version 1.0</span>
+<header id="header">
+  <canvas id="ascii-canvas"></canvas>
+  <div class="hero">
+    <h1>Real-world data<br>for physical AI</h1>
+    <p>We source real-world environments, deploy operators on-site, and deliver custom video data for training robotics and AI models.</p>
   </div>
-</div>
-<div class="scroll-hint">
-  <div class="scroll-line"></div>
-</div>
+  <div class="scroll-hint"></div>
 </header>
 
-<!-- TOC -->
-<nav class="toc">
-<div class="container">
-  <a href="#exec">Executive Summary</a>
-  <a href="#market">Market Context</a>
-  <a href="#tier1">Tier 1: Lightweight</a>
-  <a href="#tier2">Tier 2: Sensor-Rich</a>
-  <a href="#tier3">Tier 3: Teleop Rigs</a>
-  <a href="#data-quality">Data Quality</a>
-  <a href="#infra">Infrastructure</a>
-  <a href="#phasing">Phased Rollout</a>
-  <a href="#portable">Portable / Wearable</a>
-  <a href="#shopping">Shopping List</a>
-</div>
-</nav>
+<main>
 
-<main class="container">
-
-<!-- ============================================ -->
-<!-- SECTION 1: EXECUTIVE SUMMARY -->
-<!-- ============================================ -->
-<section id="exec">
-<h2><span class="num">01</span> Executive Summary</h2>
-<p>Human Data Partnership (HDP) is building a <strong>robotics teleoperation data collection facility</strong> in Southeast Asia with <strong>300–450 operator workstations</strong>. Operators will guide robot arms and manipulation systems through physical tasks, recording high-fidelity multi-modal action sequences used to train Vision-Language-Action (VLA) models.</p>
-
-<div class="stat-grid">
-  <div class="stat-box">
-    <div class="stat-val">300–450</div>
-    <div class="stat-label">Operator Stations</div>
-  </div>
-  <div class="stat-box">
-    <div class="stat-val">3 Tiers</div>
-    <div class="stat-label">Equipment Phases</div>
-  </div>
-  <div class="stat-box">
-    <div class="stat-val">~$2.44M</div>
-    <div class="stat-label">Full Buildout Est.</div>
-  </div>
-  <div class="stat-box">
-    <div class="stat-val">SE Asia</div>
-    <div class="stat-label">Primary Location</div>
-  </div>
-</div>
-
-<p><strong>Why now:</strong> Every major humanoid robotics company (Figure, Tesla Optimus, Galbot, AgiBot, Unitree) needs massive volumes of teleoperation data to train their VLA models. The bottleneck isn't compute — it's <strong>high-quality, synchronized, calibrated physical manipulation data</strong>. China is building dozens of teleop centers with government backing. HDP provides an <strong>independent, non-China-locked</strong> data supply for US and global robotics firms.</p>
-
-<p><strong>What we sell:</strong> Not raw video. We sell <strong>deployment-grade action sequences</strong> — synchronized RGB + depth + force/torque + joint states (commanded vs. actual) + tactile data, with per-episode latency profiles and per-robot system identification metadata. This is the difference between $5/hour commodity data and $50–200/hour premium data.</p>
-
-<div class="callout">
-  <strong>Key Insight:</strong> Most teleop shops record video + joint positions and call it a day. HDP ships synchronized, calibrated, latency-profiled episodes with sysID metadata — targeting teams building real deployment policies, not training demos.
+<section>
+<div class="wrap">
+  <div class="label">What we do</div>
+  <h2>Facility access is the hard part. We've already built the networks.</h2>
+  <p>Your models need diverse video from real environments — factories, homes, restaurants, warehouses. But these spaces don't open their doors to outsiders.</p>
+  <p>We've spent years building on-the-ground relationships with facility operators across Southeast Asia and India. We already have operators deployed, partnerships active, and data flowing. We work alongside leading AI labs and robotics companies to deliver data built entirely around <strong>their training pipelines</strong> — and we'll do the same for yours.</p>
 </div>
 </section>
 
-<!-- ============================================ -->
-<!-- SECTION 2: MARKET CONTEXT -->
-<!-- ============================================ -->
-<section id="market">
-<h2><span class="num">02</span> Market Context</h2>
-<p>The robotics data collection market is in its earliest innings, but the demand signals are loud.</p>
-
-<details open>
-  <summary>The a16z / Embodied AI Thesis</summary>
-  <div class="detail-content">
-    <p>Andreessen Horowitz has been <strong>the most vocal institutional voice</strong> on the embodied AI opportunity. Their thesis: foundation models (LLMs) proved that <strong>scale + data = capability</strong>. The same dynamic is playing out in robotics — but physical manipulation data is 1000x harder to collect than internet text.</p>
-    <p><strong>VLA models</strong> (Vision-Language-Action) are the robotics equivalent of GPT. They take visual input + language instructions and output motor commands. Training them requires millions of manipulation episodes — far more data than any single robotics lab can produce.</p>
-    <p>This creates a massive market for <strong>outsourced, standardized data collection infrastructure</strong> — exactly what HDP is building.</p>
-  </div>
-</details>
-
-<details>
-  <summary>China's Teleoperation Buildout</summary>
-  <div class="detail-content">
-    <p>As documented by journalist Chang Che (Guardian, March 2026), China has built <strong>dozens of government-backed teleoperation centers</strong> in the past year. Key dynamics:</p>
-    <ul style="margin: 12px 0 12px 20px; color: var(--text-dim);">
-      <li>~140 humanoid robotics companies in China, each needing teleop data</li>
-      <li>Government providing <strong>free land</strong> for teleop centers</li>
-      <li>Youth unemployment channeled into teleop operator jobs</li>
-      <li>Labor dispatch system recruits workers from villages and vocational schools</li>
-      <li>Chinese data security laws force overseas data collection for export customers</li>
-      <li>Chinese firms reportedly establishing training centers in Vietnam for US-bound data</li>
-    </ul>
-    <p><strong>HDP's advantage:</strong> We're building outside China's data sovereignty zone, making our data directly usable by US firms (Figure AI, Tesla, Apptronik, 1X) without export restrictions.</p>
-  </div>
-</details>
-
-<details>
-  <summary>Data Pricing &amp; Unit Economics</summary>
-  <div class="detail-content">
-    <p>Robotics data is priced by <strong>quality tier</strong>:</p>
-    <table>
-      <tr><th>Data Tier</th><th>Content</th><th>Price Range</th></tr>
-      <tr><td>Commodity</td><td>RGB video + basic joint positions</td><td class="text-dim">$5–15/hr</td></tr>
-      <tr><td>Standard</td><td>+ depth, synced timestamps, task labels</td><td>$30–60/hr</td></tr>
-      <tr><td><strong>Premium</strong></td><td>+ force/torque, tactile, sysID, latency profiles</td><td class="text-accent">$100–250/hr</td></tr>
-      <tr><td>Specialized</td><td>Custom rigs, specific robot platforms, dexterous hands</td><td class="text-orange">$200–500/hr</td></tr>
-    </table>
-    <p>At 300 stations running 8hr shifts, 6 days/week: <strong>~75,000 episode-hours/month</strong>. At premium pricing ($100–250/hr), that's <strong>$7.5M–18.75M/month potential revenue</strong>.</p>
-  </div>
-</details>
-
-<details>
-  <summary>Key Industry Players &amp; Customers</summary>
-  <div class="detail-content">
-    <table>
-      <tr><th>Company</th><th>Focus</th><th>Data Need</th></tr>
-      <tr><td>Figure AI</td><td>General-purpose humanoid</td><td>Massive — reportedly has teleop in Vietnam</td></tr>
-      <tr><td>Tesla Optimus</td><td>Factory humanoid</td><td>Internal + supplement needed</td></tr>
-      <tr><td>1X Technologies</td><td>NEO humanoid for homes</td><td>Home task manipulation data</td></tr>
-      <tr><td>Apptronik</td><td>Apollo humanoid</td><td>Logistics/warehouse manipulation</td></tr>
-      <tr><td>Physical Intelligence (π)</td><td>VLA model developer</td><td>Largest open buyer — model-agnostic</td></tr>
-      <tr><td>Google DeepMind (RT-X)</td><td>Foundation models</td><td>Cross-embodiment data</td></tr>
-      <tr><td>Galbot (China)</td><td>Factory humanoid</td><td>Screw fastening, assembly</td></tr>
-      <tr><td>AgiBot (China)</td><td>General-purpose</td><td>Manipulation + locomotion</td></tr>
-      <tr><td>Unitree (China)</td><td>Quadruped + humanoid</td><td>Dexterous manipulation</td></tr>
-    </table>
-  </div>
-</details>
-</section>
-
-<!-- ============================================ -->
-<!-- SECTION 3: TIER 1 — LIGHTWEIGHT CAPTURE -->
-<!-- ============================================ -->
-<section id="tier1">
-<h2><span class="num">03</span> Tier 1: Lightweight Capture</h2>
-<p>Minimum viable data collection setup. Cameras + depth + compute. Sufficient for <strong>standard-tier data</strong> at $30–60/hr. Fastest to deploy, lowest cost per station.</p>
-
-<h3>Cameras &amp; Depth Sensors</h3>
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">Intel RealSense D405</div>
-    <div class="card-subtitle">Close-range stereo depth camera</div>
-    <div class="price">$334 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Depth Range:</span> <span class="val">7cm – 50cm (ideal for tabletop manipulation)</span></span>
-      <span><span class="label">Resolution:</span> <span class="val">1280×720 @ 90fps depth</span></span>
-      <span><span class="label">IMU:</span> <span class="val">No</span></span>
-      <span><span class="label">Use Case:</span> <span class="val">Close-up gripper/hand view</span></span>
+<section>
+<div class="wrap">
+  <div class="label">Environments</div>
+  <h2>Real environments. Not labs. Not stages.</h2>
+  <p>Industrial facilities, homes, restaurants, retail — we source access to whatever environments your models need.</p>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">Welding Shops</span>
+      <span class="marquee-item">Shipyards</span>
+      <span class="marquee-item">Automotive Assembly</span>
+      <span class="marquee-item">Semiconductor Fabs</span>
+      <span class="marquee-item">Warehouses & Logistics</span>
+      <span class="marquee-item">Kitchens & Restaurants</span>
+      <span class="marquee-item">Homes & Apartments</span>
+      <span class="marquee-item">Consumer Electronics</span>
+      <span class="marquee-item">Retail & Grocery</span>
+      <span class="marquee-item">Chemical & Pharma</span>
+      <span class="marquee-item">Food Processing</span>
+      <span class="marquee-item">Hotels & Hospitality</span>
+      <span class="marquee-item">Heavy Machinery</span>
+      <span class="marquee-item">Offices & Coworking</span>
+      <span class="marquee-item">+ Custom on demand</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">Welding Shops</span>
+      <span class="marquee-item">Shipyards</span>
+      <span class="marquee-item">Automotive Assembly</span>
+      <span class="marquee-item">Semiconductor Fabs</span>
+      <span class="marquee-item">Warehouses & Logistics</span>
+      <span class="marquee-item">Kitchens & Restaurants</span>
+      <span class="marquee-item">Homes & Apartments</span>
+      <span class="marquee-item">Consumer Electronics</span>
+      <span class="marquee-item">Retail & Grocery</span>
+      <span class="marquee-item">Chemical & Pharma</span>
+      <span class="marquee-item">Food Processing</span>
+      <span class="marquee-item">Hotels & Hospitality</span>
+      <span class="marquee-item">Heavy Machinery</span>
+      <span class="marquee-item">Offices & Coworking</span>
+      <span class="marquee-item">+ Custom on demand</span>
     </div>
-    <a class="buy-link" href="https://store.intelrealsense.com/" target="_blank">Intel RealSense Store →</a>
-  </div>
-
-  <div class="card recommended">
-    <div class="card-title">Intel RealSense D435i</div>
-    <div class="card-subtitle">Wide-angle stereo depth + IMU</div>
-    <div class="price">$334 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Depth Range:</span> <span class="val">0.3m – 3m</span></span>
-      <span><span class="label">Resolution:</span> <span class="val">1280×720 @ 90fps depth, 1920×1080 @ 30fps RGB</span></span>
-      <span><span class="label">FOV:</span> <span class="val">87° × 58°</span></span>
-      <span><span class="label">IMU:</span> <span class="val">Yes (BMI055)</span></span>
-      <span><span class="label">Use Case:</span> <span class="val">Scene-level view, wrist-mounted</span></span>
-    </div>
-    <a class="buy-link" href="https://store.intelrealsense.com/" target="_blank">Intel RealSense Store →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Intel RealSense D455</div>
-    <div class="card-subtitle">Long-range stereo depth + IMU</div>
-    <div class="price">$419 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Depth Range:</span> <span class="val">0.6m – 6m</span></span>
-      <span><span class="label">Resolution:</span> <span class="val">1280×720 @ 90fps depth</span></span>
-      <span><span class="label">FOV:</span> <span class="val">87° × 58°</span></span>
-      <span><span class="label">IMU:</span> <span class="val">Yes (BMI085 — better than D435i)</span></span>
-      <span><span class="label">Use Case:</span> <span class="val">Room-level scene capture</span></span>
-    </div>
-    <a class="buy-link" href="https://store.intelrealsense.com/" target="_blank">Intel RealSense Store →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Stereolabs ZED 2i</div>
-    <div class="card-subtitle">High-end stereo camera + depth + tracking</div>
-    <div class="price">$499 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Depth Range:</span> <span class="val">0.3m – 20m</span></span>
-      <span><span class="label">Resolution:</span> <span class="val">2208×1242 @ 15fps, 1280×720 @ 60fps</span></span>
-      <span><span class="label">FOV:</span> <span class="val">110° (H)</span></span>
-      <span><span class="label">IMU:</span> <span class="val">Yes (6-axis)</span></span>
-      <span><span class="label">IP Rating:</span> <span class="val">IP66 (industrial environments)</span></span>
-    </div>
-    <a class="buy-link" href="https://store.stereolabs.com/" target="_blank">Stereolabs Store →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Luxonis OAK-D Pro</div>
-    <div class="card-subtitle">On-device AI depth camera</div>
-    <div class="price">$399 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Depth:</span> <span class="val">Stereo + structured light (IR dot projector)</span></span>
-      <span><span class="label">Resolution:</span> <span class="val">4K RGB, 1280×800 stereo @ 60fps</span></span>
-      <span><span class="label">On-Device AI:</span> <span class="val">Intel Movidius Myriad X VPU</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Runs NN inference on-camera, reduces compute load</span></span>
-    </div>
-    <a class="buy-link" href="https://shop.luxonis.com/" target="_blank">Luxonis Store →</a>
-  </div>
-</div>
-
-<div class="callout info">
-  <strong>Camera Strategy:</strong> Each station needs at minimum 2 cameras — one scene-level (D435i or D455) and one close-up gripper view (D405). For premium data, add a third wrist-mounted camera. Budget 2–3 cameras per station.
-</div>
-
-<h3>Edge Compute</h3>
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">NVIDIA Jetson Orin Nano 8GB</div>
-    <div class="card-subtitle">Entry-level edge AI compute</div>
-    <div class="price">$249 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">AI Perf:</span> <span class="val">40 TOPS</span></span>
-      <span><span class="label">GPU:</span> <span class="val">1024 CUDA cores (Ampere)</span></span>
-      <span><span class="label">RAM:</span> <span class="val">8GB LPDDR5</span></span>
-      <span><span class="label">Use:</span> <span class="val">Per-station data recording + basic inference</span></span>
-    </div>
-    <a class="buy-link" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/" target="_blank">NVIDIA Store →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">NVIDIA Jetson AGX Orin 64GB</div>
-    <div class="card-subtitle">High-end edge compute</div>
-    <div class="price">$1,999 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">AI Perf:</span> <span class="val">275 TOPS</span></span>
-      <span><span class="label">GPU:</span> <span class="val">2048 CUDA cores (Ampere)</span></span>
-      <span><span class="label">RAM:</span> <span class="val">64GB LPDDR5</span></span>
-      <span><span class="label">Use:</span> <span class="val">Multi-camera fusion, real-time policy inference</span></span>
-    </div>
-    <a class="buy-link" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/" target="_blank">NVIDIA Store →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Intel NUC 13 Pro (i7)</div>
-    <div class="card-subtitle">Compact x86 workstation</div>
-    <div class="price">$750 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">CPU:</span> <span class="val">Intel Core i7-1370P (14 cores)</span></span>
-      <span><span class="label">RAM:</span> <span class="val">Up to 64GB DDR4</span></span>
-      <span><span class="label">Storage:</span> <span class="val">2x M.2 NVMe slots</span></span>
-      <span><span class="label">Use:</span> <span class="val">Alternative to Jetson for ROS 2 recording</span></span>
-    </div>
-    <a class="buy-link" href="https://www.intel.com/content/www/us/en/products/boards-kits/nuc.html" target="_blank">Intel →</a>
-  </div>
-</div>
-
-<h3>Tier 1 Station Cost Calculator</h3>
-<div class="calculator">
-  <h4>Per-Station Cost — Tier 1 (Lightweight)</h4>
-  <div class="calc-row">
-    <span class="label">Intel RealSense D435i (scene view)</span>
-    <span><span class="val">$334</span><span class="qty">× 1</span></span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Intel RealSense D405 (close-up gripper)</span>
-    <span><span class="val">$334</span><span class="qty">× 1</span></span>
-  </div>
-  <div class="calc-row">
-    <span class="label">NVIDIA Jetson Orin Nano 8GB</span>
-    <span><span class="val">$249</span><span class="qty">× 1</span></span>
-  </div>
-  <div class="calc-row">
-    <span class="label">2TB NVMe SSD (Samsung 990 Pro)</span>
-    <span><span class="val">$150</span><span class="qty">× 1</span></span>
-  </div>
-  <div class="calc-row">
-    <span class="label">USB-C hub + cables + mounting hardware</span>
-    <span><span class="val">$80</span><span class="qty">× 1</span></span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Monitor + keyboard (operator UI)</span>
-    <span><span class="val">$200</span><span class="qty">× 1</span></span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Per Station Total</span>
-    <span class="val">$1,347</span>
-  </div>
-</div>
-
-<div class="calculator">
-  <h4>Fleet Cost — Tier 1</h4>
-  <div class="calc-row">
-    <span class="label">300 stations (minimum)</span>
-    <span class="val">$398,100</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">450 stations (full capacity)</span>
-    <span class="val">$597,150</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Spares &amp; buffer (10%)</span>
-    <span class="val">$39,810 – $59,715</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Tier 1 Budget Range</span>
-    <span class="val">$438K – $657K</span>
   </div>
 </div>
 </section>
 
-<!-- ============================================ -->
-<!-- SECTION 4: TIER 2 — SENSOR-RICH -->
-<!-- ============================================ -->
-<section id="tier2">
-<h2><span class="num">04</span> Tier 2: Sensor-Rich</h2>
-<p>Adds tactile sensing, IMUs, force/torque sensors, and enhanced depth to Tier 1 base. Enables <strong>premium-tier data</strong> at $100–250/hr. This is where the data quality moat kicks in.</p>
-
-<h3>Tactile Sensors</h3>
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">GelSight Mini</div>
-    <div class="card-subtitle">Vision-based tactile sensor</div>
-    <div class="price">$490 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Type:</span> <span class="val">Elastomer + camera (vision-based)</span></span>
-      <span><span class="label">Resolution:</span> <span class="val">~25μm surface detail</span></span>
-      <span><span class="label">Output:</span> <span class="val">320×240 tactile image @ 25fps</span></span>
-      <span><span class="label">Measures:</span> <span class="val">Contact geometry, texture, slip detection</span></span>
-      <span><span class="label">Interface:</span> <span class="val">USB (appears as webcam)</span></span>
-    </div>
-    <a class="buy-link" href="https://www.gelsight.com/" target="_blank">GelSight →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">DIGIT Tactile Sensor (Meta/GelSight)</div>
-    <div class="card-subtitle">Compact fingertip tactile sensor</div>
-    <div class="price">$350 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Type:</span> <span class="val">Vision-based elastomer</span></span>
-      <span><span class="label">Size:</span> <span class="val">Fingertip-sized (20×27mm sensing area)</span></span>
-      <span><span class="label">Output:</span> <span class="val">VGA tactile image @ 30fps</span></span>
-      <span><span class="label">Design:</span> <span class="val">Open-source hardware by Meta FAIR</span></span>
-    </div>
-    <a class="buy-link" href="https://digit.ml/" target="_blank">DIGIT Project →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">XELA uSkin Tactile Sensor</div>
-    <div class="card-subtitle">Distributed capacitive tactile array</div>
-    <div class="price">$800–2,000 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Type:</span> <span class="val">Capacitive 3-axis force array</span></span>
-      <span><span class="label">Resolution:</span> <span class="val">4×4 or 8×8 taxel array, 3-axis per taxel</span></span>
-      <span><span class="label">Rate:</span> <span class="val">Up to 250Hz</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Measures shear forces (not just normal)</span></span>
-    </div>
-    <a class="buy-link" href="https://www.xelarobotics.com/" target="_blank">XELA Robotics →</a>
-  </div>
-</div>
-
-<h3>Force/Torque Sensors</h3>
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">ATI Mini45</div>
-    <div class="card-subtitle">6-axis force/torque sensor</div>
-    <div class="price">$5,800 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Axes:</span> <span class="val">6 (Fx, Fy, Fz, Tx, Ty, Tz)</span></span>
-      <span><span class="label">Force Range:</span> <span class="val">±290N (Fx/Fy), ±580N (Fz)</span></span>
-      <span><span class="label">Rate:</span> <span class="val">Up to 7,000Hz</span></span>
-      <span><span class="label">Diameter:</span> <span class="val">45mm</span></span>
-      <span><span class="label">Use:</span> <span class="val">Wrist-mounted, between arm and gripper</span></span>
-    </div>
-    <a class="buy-link" href="https://www.ati-ia.com/products/ft/sensors.aspx" target="_blank">ATI Industrial Automation →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">ATI Nano17</div>
-    <div class="card-subtitle">Compact 6-axis F/T sensor</div>
-    <div class="price">$5,200 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Axes:</span> <span class="val">6-axis</span></span>
-      <span><span class="label">Force Range:</span> <span class="val">±25N (Fx/Fy), ±35N (Fz)</span></span>
-      <span><span class="label">Diameter:</span> <span class="val">17mm (extremely compact)</span></span>
-      <span><span class="label">Use:</span> <span class="val">Fingertip or small gripper mounting</span></span>
-    </div>
-    <a class="buy-link" href="https://www.ati-ia.com/products/ft/sensors.aspx" target="_blank">ATI Industrial Automation →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">OnRobot HEX-E</div>
-    <div class="card-subtitle">6-axis F/T sensor for cobots</div>
-    <div class="price">$3,500 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Axes:</span> <span class="val">6-axis</span></span>
-      <span><span class="label">Rate:</span> <span class="val">1,000Hz</span></span>
-      <span><span class="label">Interface:</span> <span class="val">USB/Ethernet, ROS driver available</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Easier integration than ATI, cobot-friendly</span></span>
-    </div>
-    <a class="buy-link" href="https://onrobot.com/en/products/hex-e-qc" target="_blank">OnRobot →</a>
-  </div>
-</div>
-
-<h3>IMUs</h3>
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">Bosch BNO085</div>
-    <div class="card-subtitle">9-axis IMU with sensor fusion</div>
-    <div class="price">$25 <span class="unit">/unit (breakout board)</span></div>
-    <div class="specs">
-      <span><span class="label">Axes:</span> <span class="val">9-axis (accel + gyro + magnetometer)</span></span>
-      <span><span class="label">On-chip:</span> <span class="val">Sensor fusion processor (quaternion output)</span></span>
-      <span><span class="label">Rate:</span> <span class="val">Up to 400Hz</span></span>
-      <span><span class="label">Interface:</span> <span class="val">I2C / SPI / UART</span></span>
-    </div>
-    <a class="buy-link" href="https://www.adafruit.com/product/4754" target="_blank">Adafruit →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">VectorNav VN-100</div>
-    <div class="card-subtitle">Industrial-grade AHRS/IMU</div>
-    <div class="price">$800 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Axes:</span> <span class="val">9-axis with onboard Kalman filter</span></span>
-      <span><span class="label">Rate:</span> <span class="val">Up to 800Hz</span></span>
-      <span><span class="label">Accuracy:</span> <span class="val">±0.5° heading, ±0.1° pitch/roll</span></span>
-      <span><span class="label">Use:</span> <span class="val">High-precision arm/body tracking</span></span>
-    </div>
-    <a class="buy-link" href="https://www.vectornav.com/products/detail/vn-100" target="_blank">VectorNav →</a>
-  </div>
-</div>
-
-<h3>Tier 2 Add-On Cost Calculator</h3>
-<div class="calculator">
-  <h4>Per-Station Add-On — Tier 2 (on top of Tier 1)</h4>
-  <div class="calc-row">
-    <span class="label">GelSight Mini (tactile, per gripper finger)</span>
-    <span><span class="val">$980</span><span class="qty">× 2</span></span>
-  </div>
-  <div class="calc-row">
-    <span class="label">OnRobot HEX-E (wrist F/T sensor)</span>
-    <span><span class="val">$3,500</span><span class="qty">× 1</span></span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Bosch BNO085 IMUs (arm segments)</span>
-    <span><span class="val">$75</span><span class="qty">× 3</span></span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Third camera — RealSense D435i (wrist)</span>
-    <span><span class="val">$334</span><span class="qty">× 1</span></span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Sensor mounting, wiring, connectors</span>
-    <span><span class="val">$150</span><span class="qty">× 1</span></span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Tier 2 Add-On Per Station</span>
-    <span class="val">$5,019</span>
-  </div>
-</div>
-
-<div class="calculator">
-  <h4>Fleet Cost — Tier 1 + Tier 2 Combined</h4>
-  <div class="calc-row">
-    <span class="label">Per station (T1 + T2)</span>
-    <span class="val">$6,346</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">300 stations</span>
-    <span class="val">$1,903,800</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">450 stations</span>
-    <span class="val">$2,855,700</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Spares &amp; buffer (10%)</span>
-    <span class="val">$190,380 – $285,570</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Tier 1+2 Budget Range</span>
-    <span class="val">$2.09M – $3.14M</span>
-  </div>
-</div>
-
-<div class="callout warning">
-  <strong>Note:</strong> Not all 300–450 stations need Tier 2 sensors day one. A phased approach (50 stations T2, rest T1) dramatically reduces initial capital. See the Phased Rollout section.
+<section>
+<div class="wrap">
+  <div class="label">Built to your spec</div>
+  <h2>We adapt everything to your training pipeline.</h2>
+  <ul class="items">
+    <li><strong>Camera setup</strong> — Head-mounted egocentric, multi-angle, wrist-mounted, depth, or custom rig configurations</li>
+    <li><strong>Task domains</strong> — Industrial, residential, commercial — any environment your models need. We source access to match.</li>
+    <li><strong>Annotation</strong> — Task labels, temporal segmentation, object metadata, or your custom format</li>
+    <li><strong>Quality</strong> — Automated anonymization, manual QC, acceptance criteria defined with your team before collection</li>
+    <li><strong>Data modalities</strong> — Vision, spatial, kinematics, haptics, force/torque, task intelligence — up to 6 synchronized modalities</li>
+    <li><strong>Security</strong> — All footage under NDA. Custom data handling, IP protections, and compliance requirements accommodated.</li>
+  </ul>
 </div>
 </section>
 
-<!-- ============================================ -->
-<!-- SECTION 5: TIER 3 — TELEOP RIGS -->
-<!-- ============================================ -->
-<section id="tier3">
-<h2><span class="num">05</span> Tier 3: Teleoperation Rigs</h2>
-<p>Full leader-follower robot arm setups for collecting <strong>deployment-ready manipulation data</strong>. This is the highest-value data tier — the action sequences from these rigs can directly train VLA models for specific robot platforms.</p>
-
-<h3>Low-Cost Arms (Koch / SO-100 / ALOHA-Style)</h3>
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">Koch v1.1 / SO-100 Leader-Follower Kit</div>
-    <div class="card-subtitle">Open-source low-cost teleop arm pair</div>
-    <div class="price">$500 <span class="unit">/pair (leader + follower, all-in)</span></div>
-    <div class="specs">
-      <span><span class="label">DOF:</span> <span class="val">6 per arm (5 joints + gripper)</span></span>
-      <span><span class="label">Motors:</span> <span class="val">Dynamixel XL330 (Koch) / Feetech STS3215 (SO-100)</span></span>
-      <span><span class="label">Electronics:</span> <span class="val">Leader $205 + Follower $213 from ROBOTIS</span></span>
-      <span><span class="label">3D Printed Parts:</span> <span class="val">~$50–80 (local manufacturing in SE Asia)</span></span>
-      <span><span class="label">Payload:</span> <span class="val">~300g</span></span>
-      <span><span class="label">Software:</span> <span class="val">LeRobot (HuggingFace) compatible</span></span>
-      <span><span class="label">Lead Time:</span> <span class="val">2–3 week from ROBOTIS, 1 week assembly each</span></span>
-    </div>
-    <a class="buy-link" href="https://robotis.us/koch-v1-1-low-cost-robot-arm-leader/" target="_blank">ROBOTIS Store →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Trossen ALOHA Stationary V2</div>
-    <div class="card-subtitle">Bimanual teleop system (2 leader + 2 follower arms)</div>
-    <div class="price">$28,000 <span class="unit">/full kit (no laptop)</span></div>
-    <div class="specs">
-      <span><span class="label">Arms:</span> <span class="val">4× ViperX 300 6DOF (2 leader, 2 follower)</span></span>
-      <span><span class="label">Motors:</span> <span class="val">Dynamixel XM/XL series</span></span>
-      <span><span class="label">Payload:</span> <span class="val">~750g per arm</span></span>
-      <span><span class="label">Software:</span> <span class="val">ROS 2, LeRobot, ACT policy compatible</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Bimanual tasks, proven in research (Google, Stanford)</span></span>
-      <span><span class="label">Note:</span> <span class="val">ALOHA Solo (single-arm) available at $9,000</span></span>
-    </div>
-    <a class="buy-link" href="https://www.trossenrobotics.com/aloha-kits" target="_blank">Trossen Robotics →</a>
-  </div>
-</div>
-
-<h3>Research-Grade Arms</h3>
-<div class="card-grid">
-  <div class="card">
-    <div class="card-title">Franka Research 3 (FR3)</div>
-    <div class="card-subtitle">7-DOF torque-controlled research arm</div>
-    <div class="price">$35,000–40,000 <span class="unit">/arm</span></div>
-    <div class="specs">
-      <span><span class="label">DOF:</span> <span class="val">7 (torque sensors in every joint)</span></span>
-      <span><span class="label">Payload:</span> <span class="val">3kg</span></span>
-      <span><span class="label">Repeatability:</span> <span class="val">±0.1mm</span></span>
-      <span><span class="label">Control:</span> <span class="val">1kHz torque control loop</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Gold standard for contact-rich manipulation research</span></span>
-    </div>
-    <a class="buy-link" href="https://franka.de/" target="_blank">Franka Robotics →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Universal Robots UR5e</div>
-    <div class="card-subtitle">6-DOF collaborative robot arm</div>
-    <div class="price">$28,000–35,000 <span class="unit">/arm</span></div>
-    <div class="specs">
-      <span><span class="label">DOF:</span> <span class="val">6</span></span>
-      <span><span class="label">Payload:</span> <span class="val">5kg</span></span>
-      <span><span class="label">Reach:</span> <span class="val">850mm</span></span>
-      <span><span class="label">F/T:</span> <span class="val">Built-in 6-axis F/T sensor</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Industry standard, huge ecosystem</span></span>
-    </div>
-    <a class="buy-link" href="https://www.universal-robots.com/" target="_blank">Universal Robots →</a>
-  </div>
-</div>
-
-<h3>VR / Haptic Controllers (for remote teleop)</h3>
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">Meta Quest 3</div>
-    <div class="card-subtitle">VR headset + hand tracking for teleop control</div>
-    <div class="price">$500 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Tracking:</span> <span class="val">6DOF head + hand tracking (no external sensors)</span></span>
-      <span><span class="label">Controllers:</span> <span class="val">Touch Plus controllers included</span></span>
-      <span><span class="label">Passthrough:</span> <span class="val">Color mixed reality</span></span>
-      <span><span class="label">Use:</span> <span class="val">Operator uses VR to see robot's view, hands control arms</span></span>
-    </div>
-    <a class="buy-link" href="https://www.meta.com/quest/quest-3/" target="_blank">Meta Store →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">SenseGlove Nova 2</div>
-    <div class="card-subtitle">Haptic feedback gloves</div>
-    <div class="price">$5,999 <span class="unit">/pair</span></div>
-    <div class="specs">
-      <span><span class="label">Haptics:</span> <span class="val">Force feedback per finger (up to 20N)</span></span>
-      <span><span class="label">Tracking:</span> <span class="val">Finger bend + spread sensing</span></span>
-      <span><span class="label">Use:</span> <span class="val">Operator feels what robot touches — improves data quality</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Haptic feedback reduces operator errors by ~40%</span></span>
-    </div>
-    <a class="buy-link" href="https://www.senseglove.com/" target="_blank">SenseGlove →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">HaptX Gloves G1</div>
-    <div class="card-subtitle">High-fidelity haptic gloves</div>
-    <div class="price">$5,495 <span class="unit">/pair + $495/mo subscription</span></div>
-    <div class="specs">
-      <span><span class="label">Haptics:</span> <span class="val">133 tactile actuators per hand</span></span>
-      <span><span class="label">Tracking:</span> <span class="val">Sub-mm finger tracking</span></span>
-      <span><span class="label">Force:</span> <span class="val">Up to 40N force feedback per finger</span></span>
-      <span><span class="label">Subscription:</span> <span class="val">$495/mo mandatory (SDK + maintenance)</span></span>
-      <span><span class="label">Use:</span> <span class="val">Premium dexterous manipulation teleop</span></span>
-    </div>
-    <a class="buy-link" href="https://haptx.com/" target="_blank">HaptX →</a>
-  </div>
-</div>
-
-<h3>Grippers</h3>
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">Robotiq 2F-85 / 2F-140</div>
-    <div class="card-subtitle">Adaptive parallel gripper</div>
-    <div class="price">$4,500 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Stroke:</span> <span class="val">85mm (2F-85) / 140mm (2F-140)</span></span>
-      <span><span class="label">Force:</span> <span class="val">20–235N gripping force</span></span>
-      <span><span class="label">Speed:</span> <span class="val">20–150mm/s</span></span>
-      <span><span class="label">Interface:</span> <span class="val">UR, ROS 2 native support</span></span>
-    </div>
-    <a class="buy-link" href="https://robotiq.com/" target="_blank">Robotiq →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">UMI Gripper (Open Source)</div>
-    <div class="card-subtitle">3D-printed gripper with finger-tip cameras</div>
-    <div class="price">$150 <span class="unit">/unit (DIY)</span></div>
-    <div class="specs">
-      <span><span class="label">Design:</span> <span class="val">Open-source, 3D printed</span></span>
-      <span><span class="label">Cameras:</span> <span class="val">2× GoPro-style for in-hand view</span></span>
-      <span><span class="label">Software:</span> <span class="val">UMI framework (Stanford)</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Cheapest path to in-hand visual data</span></span>
-    </div>
-    <a class="buy-link" href="https://umi-gripper.github.io/" target="_blank">UMI Project →</a>
-  </div>
-</div>
-
-<h3>Tier 3 Station Configurations</h3>
-<div class="calculator">
-  <h4>Config A: Budget Teleop (Koch SO-100)</h4>
-  <div class="calc-row">
-    <span class="label">Koch v1.1 leader-follower pair (electronics + 3D prints)</span>
-    <span class="val">$500</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Tier 1 capture kit (cameras + compute)</span>
-    <span class="val">$1,347</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Tabletop + mounting frame</span>
-    <span class="val">$200</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Config A Total</span>
-    <span class="val">$2,047</span>
-  </div>
-</div>
-
-<div class="calculator">
-  <h4>Config B: Standard Teleop (ALOHA Solo, single-arm)</h4>
-  <div class="calc-row">
-    <span class="label">Trossen ALOHA Solo (single leader-follower)</span>
-    <span class="val">$9,000</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Tier 1+2 sensor kit</span>
-    <span class="val">$6,386</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Workstation frame + ergonomics</span>
-    <span class="val">$400</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Config B Total</span>
-    <span class="val">$15,786</span>
-  </div>
-</div>
-
-<div class="calculator">
-  <h4>Config C: Premium Teleop (Bimanual ALOHA V2)</h4>
-  <div class="calc-row">
-    <span class="label">Trossen ALOHA Stationary V2 (4 arms, no laptop)</span>
-    <span class="val">$28,000</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Tier 1+2 sensor kit (×2 for bimanual)</span>
-    <span class="val">$12,772</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Meta Quest 3 (VR interface)</span>
-    <span class="val">$500</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Workstation frame + ergonomics</span>
-    <span class="val">$600</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Config C Total</span>
-    <span class="val">$41,872</span>
-  </div>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SECTION 6: DATA QUALITY INFRASTRUCTURE -->
-<!-- ============================================ -->
-<section id="data-quality">
-<h2><span class="num">06</span> Data Quality Infrastructure</h2>
-<p>This is what separates HDP from commodity teleop shops. <strong>Controller sysID + latency matching + time synchronization</strong> turn raw recordings into deployment-grade action sequences worth 10–50× more.</p>
-
-<h3>Controller System Identification (SysID)</h3>
-<div class="callout">
-  <strong>What it is:</strong> Measuring exactly how each robot responds to commands. Every arm has slightly different friction, backlash, cable stretch, and motor response curves. Without sysID, learned policies won't transfer from training to deployment.
-</div>
-
-<details open>
-  <summary>SysID Implementation at HDP</summary>
-  <div class="detail-content">
-    <h4 style="color: var(--accent); margin-bottom: 12px;">1. Calibration Routine (Before Each Shift)</h4>
-    <p>Run a standard "exercise" sequence on each robot — sweep each joint through its range at known velocities. Takes ~5 min per rig. This captures the robot's actual transfer function that day.</p>
-
-    <h4 style="color: var(--accent); margin: 16px 0 12px;">2. Record Commanded vs. Actual at Every Timestep</h4>
-    <p>Don't just log "operator moved joystick right." Log:</p>
-    <table>
-      <tr><th>Channel</th><th>Source</th><th>Rate</th></tr>
-      <tr><td>Commanded joint position</td><td>Control signal from operator</td><td>50Hz</td></tr>
-      <tr><td>Actual joint position</td><td>Joint encoders</td><td>50Hz</td></tr>
-      <tr><td>Commanded joint velocity</td><td>Derived from control</td><td>50Hz</td></tr>
-      <tr><td>Actual joint velocity</td><td>Encoder differentiation</td><td>50Hz</td></tr>
-      <tr><td>Commanded torque</td><td>Motor current target</td><td>50Hz</td></tr>
-      <tr><td>Actual torque</td><td>Current sensing / torque sensor</td><td>50Hz</td></tr>
-      <tr><td><strong>Delta (commanded - actual)</strong></td><td><strong>Computed per-timestep</strong></td><td><strong>50Hz</strong></td></tr>
-    </table>
-    <p style="margin-top: 12px;">The delta between commanded and actual <strong>IS the sysID data</strong>. Customers use this to adapt policies to their specific robot hardware.</p>
-
-    <h4 style="color: var(--accent); margin: 16px 0 12px;">3. Per-Robot Metadata File</h4>
-    <p>Each rig gets a config profile shipped alongside episode data:</p>
-    <div style="background: var(--bg); border-radius: 8px; padding: 16px; font-family: monospace; font-size: 13px; margin-top: 8px; overflow-x: auto;">
-      <pre style="color: var(--text-dim); margin: 0;">{
-  "robot_id": "hdp-station-047",
-  "arm_model": "koch_v1.1_so100",
-  "serial": "KCH-2026-0047",
-  "calibration_date": "2026-03-27T08:00:00Z",
-  "joint_limits_deg": [[-150,150], [-90,90], [-150,150], [-90,90], [-150,150], [0,80]],
-  "gear_ratios": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-  "known_backlash_deg": [0.3, 0.2, 0.4, 0.2, 0.3, 0.1],
-  "motor_model": "feetech_sts3215",
-  "firmware_version": "2.1.4",
-  "gripper_type": "parallel_2f",
-  "sensors_attached": ["gelsight_mini_L", "gelsight_mini_R", "onrobot_hex_e"]
-}</pre>
-    </div>
-  </div>
-</details>
-
-<h3>Latency Matching</h3>
-<div class="callout">
-  <strong>What it is:</strong> Ensuring the timing between human input → robot action → sensor recording is consistent and known. If there's a mismatch between teleop control loop timing vs. autonomous execution timing, learned behaviors break down.
-</div>
-
-<details open>
-  <summary>Latency Matching Implementation</summary>
-  <div class="detail-content">
-    <h4 style="color: var(--accent); margin-bottom: 12px;">1. PTP Time Synchronization</h4>
-    <p>Every camera, IMU, robot controller, and F/T sensor must be on the <strong>same clock</strong>. Use <strong>PTP (IEEE 1588 Precision Time Protocol)</strong> over the local network — sub-microsecond sync.</p>
-
-    <table>
-      <tr><th>Component</th><th>Product</th><th>Price</th></tr>
-      <tr><td>PTP Grandmaster Clock</td><td>Meinberg microSync (or Qulsar)</td><td>$2,000–5,000</td></tr>
-      <tr><td>PTP-capable managed switch</td><td>Cisco Catalyst 1000-24T / Aruba 2530</td><td>$200–400 per station cluster</td></tr>
-      <tr><td>GPS antenna (for grandmaster)</td><td>Included with grandmaster unit</td><td>—</td></tr>
-    </table>
-    <p style="margin-top: 12px;">One PTP grandmaster per room (serves ~50 stations). All devices sync to it. Budget: ~$5,000 per room + $200–400 per station cluster switch.</p>
-
-    <h4 style="color: var(--accent); margin: 16px 0 12px;">2. Timestamp Every Stage of the Pipeline</h4>
-    <table>
-      <tr><th>Event</th><th>Symbol</th><th>Source</th></tr>
-      <tr><td>Operator input captured</td><td>t₀</td><td>Controller/glove timestamp</td></tr>
-      <tr><td>Command sent to robot</td><td>t₁</td><td>Control PC outgoing</td></tr>
-      <tr><td>Robot begins executing</td><td>t₂</td><td>Motor driver ACK</td></tr>
-      <tr><td>Robot reaches target position</td><td>t₃</td><td>Encoder convergence</td></tr>
-      <tr><td>Camera frame captured</td><td>t₄</td><td>Hardware trigger timestamp</td></tr>
-      <tr><td>Depth frame captured</td><td>t₅</td><td>Hardware trigger timestamp</td></tr>
-      <tr><td>Tactile reading captured</td><td>t₆</td><td>Sensor timestamp</td></tr>
-    </table>
-    <p style="margin-top: 12px;">The gaps between these (t₁−t₀, t₂−t₁, etc.) are the <strong>latency profile</strong> shipped with each episode.</p>
-
-    <h4 style="color: var(--accent); margin: 16px 0 12px;">3. Fixed Control Frequency</h4>
-    <p>Pick a rate and enforce it: <strong>30–50Hz for control, matched sensor capture</strong>. If a frame drops, log it as null with timestamp rather than skipping. Downstream VLA models expect uniform timesteps.</p>
-
-    <h4 style="color: var(--accent); margin: 16px 0 12px;">4. Hardware Trigger for Sensor Sync</h4>
-    <p>Don't rely on software timestamps for cameras. Use a <strong>hardware trigger signal</strong> (GPIO pulse from main controller) so all cameras capture at the exact same instant.</p>
-
-    <table>
-      <tr><th>Component</th><th>Product</th><th>Price</th></tr>
-      <tr><td>Hardware trigger board</td><td>Arduino Mega 2560 (GPIO trigger generator)</td><td>$45</td></tr>
-      <tr><td>Trigger distribution</td><td>Custom PCB or BNC splitter</td><td>$30–50</td></tr>
-      <tr><td>Sync cables</td><td>GPIO → camera trigger cables</td><td>$15–25</td></tr>
-    </table>
-    <p style="margin-top: 12px;">Total per station: <strong>~$90</strong> for hardware sync. Tiny cost, massive data quality uplift.</p>
-  </div>
-</details>
-
-<h3>Episode Data Format</h3>
-<div class="callout info">
-  <strong>Each episode HDP ships includes all of these channels:</strong>
-</div>
-
-<table>
-  <tr><th>Channel</th><th>Rate</th><th>Content</th><th>Format</th></tr>
-  <tr><td>RGB video</td><td>30Hz</td><td>Hardware-triggered, PTP-timestamped</td><td>H.264 / raw frames</td></tr>
-  <tr><td>Depth maps</td><td>30Hz</td><td>Synced to RGB trigger signal</td><td>16-bit PNG / NumPy</td></tr>
-  <tr><td>Joint states (commanded)</td><td>50Hz</td><td>What the operator intended</td><td>Float32 arrays</td></tr>
-  <tr><td>Joint states (actual)</td><td>50Hz</td><td>What the robot actually did</td><td>Float32 arrays</td></tr>
-  <tr><td>Force/torque</td><td>100Hz+</td><td>End-effector contact forces (6-axis)</td><td>Float32 arrays</td></tr>
-  <tr><td>Tactile images</td><td>30Hz</td><td>GelSight contact geometry (if Tier 2+)</td><td>RGB images</td></tr>
-  <tr><td>IMU data</td><td>200Hz</td><td>Arm segment orientation + acceleration</td><td>Quaternion + Vec3</td></tr>
-  <tr><td>Latency profile</td><td>Per-episode</td><td>t₀–t₆ gap measurements</td><td>JSON metadata</td></tr>
-  <tr><td>Robot sysID</td><td>Per-session</td><td>Calibration sweep + backlash profile</td><td>JSON + NumPy</td></tr>
-  <tr><td>Task metadata</td><td>Per-episode</td><td>Task label, success/fail, language instruction</td><td>JSON</td></tr>
-</table>
-
-<h3>Data Quality Add-On Cost</h3>
-<div class="calculator">
-  <h4>Data Quality Infrastructure — Per Station</h4>
-  <div class="calc-row">
-    <span class="label">Hardware trigger board (Arduino Mega 2560)</span>
-    <span class="val">$45</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Trigger distribution + sync cables</span>
-    <span class="val">$50</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">PTP switch port allocation (shared switch)</span>
-    <span class="val">$15</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Per-Station Data Quality Add-On</span>
-    <span class="val">$110</span>
-  </div>
-</div>
-
-<div class="calculator">
-  <h4>Data Quality Infrastructure — Shared (Per Room / ~50 Stations)</h4>
-  <div class="calc-row">
-    <span class="label">PTP Grandmaster Clock</span>
-    <span class="val">$3,500</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">PTP managed switches (Cisco Catalyst 1000)</span>
-    <span><span class="val">$1,600</span><span class="qty">× 4</span></span>
-  </div>
-  <div class="calc-row">
-    <span class="label">GPS antenna + roof mount</span>
-    <span class="val">$200</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Per Room (~50 Stations) Shared Cost</span>
-    <span class="val">$10,100</span>
-  </div>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SECTION 7: INFRASTRUCTURE -->
-<!-- ============================================ -->
-<section id="infra">
-<h2><span class="num">07</span> Infrastructure</h2>
-<p>Networking, storage, power, and software required to run the facility.</p>
-
-<h3>Network Architecture</h3>
-<details open>
-  <summary>LAN &amp; Data Pipeline</summary>
-  <div class="detail-content">
-    <p>Each station generates <strong>~50–200 MB/min</strong> of multi-modal data (depending on tier). At 300 stations: <strong>~15–60 GB/min aggregate</strong>. This requires serious networking.</p>
-    <table>
-      <tr><th>Component</th><th>Spec</th><th>Qty</th><th>Unit Price</th></tr>
-      <tr><td>Core switch (10GbE)</td><td>Cisco Catalyst 9300 or Aruba 6300</td><td>2 (redundant)</td><td>$8,000</td></tr>
-      <tr><td>Access switches (1GbE, PTP)</td><td>Cisco Catalyst 1000-24T</td><td>~15 (24-port each)</td><td>$400</td></tr>
-      <tr><td>SFP+ 10GbE modules</td><td>Uplinks from access to core</td><td>30</td><td>$30</td></tr>
-      <tr><td>CAT6A cabling</td><td>Per station run</td><td>450</td><td>$15</td></tr>
-      <tr><td>Rack + patch panels</td><td>42U server rack</td><td>2</td><td>$800</td></tr>
-    </table>
-    <div class="calc-row total" style="margin-top: 12px;">
-      <span class="label">Networking Total</span>
-      <span class="val">~$30,000</span>
-    </div>
-  </div>
-</details>
-
-<h3>Storage</h3>
-<details>
-  <summary>On-Premise Storage &amp; Backup</summary>
-  <div class="detail-content">
-    <p>At 300 stations, 8hr shifts: <strong>~2–10 TB/day</strong> of raw episode data. Monthly: <strong>50–250 TB</strong>. Need fast ingest + cold archive.</p>
-    <table>
-      <tr><th>Component</th><th>Spec</th><th>Qty</th><th>Unit Price</th></tr>
-      <tr><td>NAS — Hot Storage</td><td>Synology RS3621xs+ (12-bay rackmount)</td><td>2</td><td>$4,500</td></tr>
-      <tr><td>NAS HDDs (hot)</td><td>Seagate Exos 20TB enterprise</td><td>24</td><td>$400</td></tr>
-      <tr><td>NAS — Cold Archive</td><td>Synology RX1223RP (expansion)</td><td>2</td><td>$2,000</td></tr>
-      <tr><td>Cold HDDs</td><td>Seagate Exos 20TB</td><td>24</td><td>$400</td></tr>
-      <tr><td>Per-station NVMe cache</td><td>Samsung 990 Pro 2TB</td><td>450</td><td>$150</td></tr>
-      <tr><td>Cloud backup (monthly)</td><td>AWS S3 Deep Glacier (~100TB)</td><td>—</td><td>~$100/mo</td></tr>
-    </table>
-    <div class="calc-row total" style="margin-top: 12px;">
-      <span class="label">Storage Total (initial)</span>
-      <span class="val">~$100,000</span>
-    </div>
-  </div>
-</details>
-
-<h3>Power &amp; Cooling</h3>
-<details>
-  <summary>Electrical Requirements</summary>
-  <div class="detail-content">
-    <p>Each Tier 1 station: ~150W. Tier 3 station with robot arms: ~400W. For 300 stations mixed:</p>
-    <table>
-      <tr><th>Item</th><th>Spec</th><th>Est. Cost</th></tr>
-      <tr><td>Electrical capacity</td><td>~100kW total facility load</td><td>Depends on lease</td></tr>
-      <tr><td>UPS (uninterruptible power)</td><td>APC Smart-UPS 10kVA (per rack)</td><td>$3,000 × 4</td></tr>
-      <tr><td>PDUs (power distribution)</td><td>Rackmount PDU, metered</td><td>$200 × 8</td></tr>
-      <tr><td>HVAC / cooling</td><td>Industrial AC for 100kW heat load</td><td>Included in lease (usually)</td></tr>
-    </table>
-    <div class="calc-row total" style="margin-top: 12px;">
-      <span class="label">Power Infrastructure</span>
-      <span class="val">~$15,000</span>
-    </div>
-  </div>
-</details>
-
-<h3>Software Stack</h3>
-<details>
-  <summary>Recording &amp; Data Pipeline Software</summary>
-  <div class="detail-content">
-    <table>
-      <tr><th>Software</th><th>Purpose</th><th>Cost</th></tr>
-      <tr><td>ROS 2 Humble / Iron</td><td>Robot middleware, sensor drivers, recording</td><td>Free (open source)</td></tr>
-      <tr><td>LeRobot (HuggingFace)</td><td>Teleop recording, policy training framework</td><td>Free (open source)</td></tr>
-      <tr><td>DROID data format</td><td>Standardized episode format (Toyota Research)</td><td>Free (open source)</td></tr>
-      <tr><td>mcap / rosbag2</td><td>Multi-channel recording format</td><td>Free (open source)</td></tr>
-      <tr><td>Foxglove Studio</td><td>Data visualization and QA review</td><td>Free tier / $50/mo team</td></tr>
-      <tr><td>Rerun.io</td><td>Multi-modal data visualization</td><td>Free (open source)</td></tr>
-      <tr><td>Custom QA pipeline</td><td>Automated data quality checks</td><td>Internal development</td></tr>
-      <tr><td>LinuxCNC / ros2_control</td><td>Real-time robot control</td><td>Free (open source)</td></tr>
-    </table>
-    <p style="margin-top: 12px;"><strong>Total software cost: ~$0–600/year.</strong> The robotics ecosystem is overwhelmingly open source. The real cost is engineering time to integrate and maintain.</p>
-  </div>
-</details>
-
-<h3>Workstation Ergonomics</h3>
-<details>
-  <summary>Operator Comfort (8-Hour Shifts)</summary>
-  <div class="detail-content">
-    <p>Operators work 8-hour shifts doing repetitive manipulation tasks. Ergonomics directly impact data quality — fatigued operators produce sloppy demonstrations.</p>
-    <table>
-      <tr><th>Item</th><th>Spec</th><th>Unit Cost</th></tr>
-      <tr><td>Adjustable desk</td><td>Sit/stand, 120×60cm</td><td>$200</td></tr>
-      <tr><td>Ergonomic chair</td><td>Mesh, adjustable arms/height</td><td>$150</td></tr>
-      <tr><td>Monitor</td><td>24" 1080p IPS (operator UI + camera feeds)</td><td>$120</td></tr>
-      <tr><td>Anti-fatigue mat</td><td>Standing station option</td><td>$30</td></tr>
-      <tr><td>Wrist rests</td><td>For controller/glove stations</td><td>$15</td></tr>
-    </table>
-    <div class="calc-row total" style="margin-top: 12px;">
-      <span class="label">Ergonomics Per Station</span>
-      <span class="val">~$515</span>
-    </div>
-  </div>
-</details>
-</section>
-
-<!-- ============================================ -->
-<!-- SECTION 8: PHASED ROLLOUT -->
-<!-- ============================================ -->
-<section id="phasing">
-<h2><span class="num">08</span> Phased Rollout Plan</h2>
-<p>Don't build 450 Tier 3 stations on day one. Phase the buildout to match customer demand and prove unit economics.</p>
-
-<div class="phase-bar">
-  <div class="phase phase-1">
-    <h4>Phase 1</h4>
-    <div class="timeline">Months 1–3</div>
-    <div class="cost">~$153K</div>
-    <div class="timeline">50 stations, Tier 1+Koch</div>
-  </div>
-  <div class="phase phase-2">
-    <h4>Phase 2</h4>
-    <div class="timeline">Months 4–6</div>
-    <div class="cost">~$655K</div>
-    <div class="timeline">+200 T1, 20 upgraded T2</div>
-  </div>
-  <div class="phase phase-3">
-    <h4>Phase 3</h4>
-    <div class="timeline">Months 7–12</div>
-    <div class="cost">~$1.63M</div>
-    <div class="timeline">Full 450, T3 premium rigs</div>
-  </div>
-</div>
-
-<details open>
-  <summary>Phase 1: Proof of Concept (Months 1–3)</summary>
-  <div class="detail-content">
-    <p><strong>Goal:</strong> Validate operations, train first cohort of operators, produce sample datasets for customer pilots.</p>
-    <div class="calculator">
-      <h4>Phase 1 Budget</h4>
-      <div class="calc-row">
-        <span class="label">50× Tier 1 stations (cameras + compute)</span>
-        <span class="val">$67,350</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">50× Koch v1.1 arm pairs (leader-follower)</span>
-        <span class="val">$25,000</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">50× Data quality add-on (triggers + sync)</span>
-        <span class="val">$5,500</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">1× Room networking + PTP</span>
-        <span class="val">$15,000</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">1× NAS hot storage (initial)</span>
-        <span class="val">$14,300</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">50× Workstation ergonomics</span>
-        <span class="val">$25,750</span>
-      </div>
-      <div class="calc-row total">
-        <span class="label">Phase 1 Total</span>
-        <span class="val">$152,900</span>
-      </div>
-    </div>
-    <p><strong>Output:</strong> ~2,000 episode-hours/month. Revenue at standard pricing ($50/hr): <strong>$100K/month</strong>.</p>
-  </div>
-</details>
-
-<details>
-  <summary>Phase 2: Scale Operations (Months 4–6)</summary>
-  <div class="detail-content">
-    <p><strong>Goal:</strong> Scale to 250 stations. Introduce Tier 2 sensors on 20 stations for premium data pilots.</p>
-    <div class="calculator">
-      <h4>Phase 2 Budget (Incremental)</h4>
-      <div class="calc-row">
-        <span class="label">200× Tier 1 stations</span>
-        <span class="val">$269,400</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">200× Koch arm pairs</span>
-        <span class="val">$100,000</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">20× Tier 2 sensor upgrades (tactile + F/T)</span>
-        <span class="val">$100,380</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">200× Data quality add-ons</span>
-        <span class="val">$22,000</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">4× Additional room networking + PTP</span>
-        <span class="val">$40,400</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">Storage expansion</span>
-        <span class="val">$20,000</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">200× Workstation ergonomics</span>
-        <span class="val">$103,000</span>
-      </div>
-      <div class="calc-row total">
-        <span class="label">Phase 2 Total (Incremental)</span>
-        <span class="val">$655,180</span>
-      </div>
-    </div>
-    <p><strong>Output:</strong> ~10,000 episode-hours/month. Revenue mix: <strong>$500K–$800K/month</strong>.</p>
-  </div>
-</details>
-
-<details>
-  <summary>Phase 3: Full Capacity + Premium (Months 7–12)</summary>
-  <div class="detail-content">
-    <p><strong>Goal:</strong> Hit 450 stations. Add ALOHA/premium teleop rigs. Offer specialized data collection contracts.</p>
-    <div class="calculator">
-      <h4>Phase 3 Budget (Incremental)</h4>
-      <div class="calc-row">
-        <span class="label">200× Tier 1 stations (fill to 450)</span>
-        <span class="val">$269,400</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">200× Koch arm pairs</span>
-        <span class="val">$100,000</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">30× ALOHA V2 bimanual rigs (premium)</span>
-        <span class="val">$840,000</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">50× Tier 2 sensor upgrades</span>
-        <span class="val">$250,950</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">10× Meta Quest 3 (VR teleop)</span>
-        <span class="val">$5,000</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">Infrastructure expansion (network + storage)</span>
-        <span class="val">$60,000</span>
-      </div>
-      <div class="calc-row">
-        <span class="label">200× Workstation ergonomics</span>
-        <span class="val">$103,000</span>
-      </div>
-      <div class="calc-row total">
-        <span class="label">Phase 3 Total (Incremental)</span>
-        <span class="val">$1,628,350</span>
-      </div>
-    </div>
-    <p><strong>Output:</strong> ~18,000 episode-hours/month. Revenue at blended pricing: <strong>$1.2M–$3M/month</strong>.</p>
-  </div>
-</details>
-
-<h3>Cumulative Investment</h3>
-<div class="calculator">
-  <h4>Total Capital Expenditure by Phase</h4>
-  <div class="calc-row">
-    <span class="label">Phase 1 (50 stations)</span>
-    <span class="val">$152,900</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Phase 2 (→250 stations)</span>
-    <span class="val">$655,180</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Phase 3 (→450 stations + premium)</span>
-    <span class="val">$1,628,350</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Total Buildout</span>
-    <span class="val">$2,436,430</span>
-  </div>
-</div>
-
-<div class="callout">
-  <strong>Payback period:</strong> At Phase 1 revenue of $100K/month, Phase 1 capex ($153K) pays back in <strong>under 2 months</strong>. The facility becomes cash-flow positive almost immediately — each subsequent phase is funded by revenue from the previous phase.
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SECTION: PORTABLE / WEARABLE DATA COLLECTION -->
-<!-- ============================================ -->
-<section id="portable">
-<h2><span class="num">05b</span> Portable / Wearable Kits</h2>
-<p>Deployable data collection rigs that operators wear in <strong>real-world settings</strong> — kitchens, restaurants, retail floors, warehouses, homes. No robot arm required. Captures <strong>egocentric human demonstration data</strong> that trains VLA models on real environments, not just lab setups.</p>
-
-<div class="callout info">
-  <strong>Why this matters:</strong> Lab teleop data is collected in controlled environments. But robots will deploy in messy, variable real-world settings. Egocentric wearable data from actual kitchens, stores, and homes is extremely valuable because it captures the environment variability that lab data misses. Several companies (especially home robotics firms like 1X, Hello Robot) are actively buying this data.
-</div>
-
-<h3>Level 1: Vision-Only (Head-Mounted Camera)</h3>
-<p>Cheapest, fastest to deploy. Operator wears a camera rig and performs tasks naturally. Captures egocentric RGB + depth perspective.</p>
-
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">GoPro Hero 13 Black</div>
-    <div class="card-subtitle">Action camera — head/chest mount</div>
-    <div class="price">$400 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Resolution:</span> <span class="val">5.3K @ 60fps, 4K @ 120fps</span></span>
-      <span><span class="label">FOV:</span> <span class="val">SuperView (widest), HyperSmooth stabilization</span></span>
-      <span><span class="label">Battery:</span> <span class="val">~2.5 hrs continuous recording</span></span>
-      <span><span class="label">Weight:</span> <span class="val">154g</span></span>
-      <span><span class="label">Mount:</span> <span class="val">Head strap ($20) or chest harness ($40)</span></span>
-    </div>
-    <a class="buy-link" href="https://gopro.com/" target="_blank">GoPro Store →</a>
-  </div>
-
-  <div class="card recommended">
-    <div class="card-title">Intel RealSense D405 (head-mounted)</div>
-    <div class="card-subtitle">Compact depth camera for egocentric view</div>
-    <div class="price">$334 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Depth + RGB:</span> <span class="val">Close-range stereo depth (7cm–50cm)</span></span>
-      <span><span class="label">Size:</span> <span class="val">42×42×23mm — small enough for head mount</span></span>
-      <span><span class="label">Weight:</span> <span class="val">~30g (sensor only)</span></span>
-      <span><span class="label">Use:</span> <span class="val">Captures depth of hands/objects being manipulated</span></span>
-      <span><span class="label">Note:</span> <span class="val">Needs tethered compute (Jetson in backpack/belt)</span></span>
-    </div>
-    <a class="buy-link" href="https://store.intelrealsense.com/" target="_blank">Intel RealSense Store →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Meta Ray-Ban Smart Glasses</div>
-    <div class="card-subtitle">Inconspicuous egocentric capture</div>
-    <div class="price">$299 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Camera:</span> <span class="val">12MP photo, 1080p @ 30fps video</span></span>
-      <span><span class="label">Audio:</span> <span class="val">5 built-in microphones + speakers</span></span>
-      <span><span class="label">Battery:</span> <span class="val">~4 hours mixed use</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Looks like normal glasses — non-intrusive in public settings</span></span>
-      <span><span class="label">Limitation:</span> <span class="val">No depth sensor, 1080p only</span></span>
-    </div>
-    <a class="buy-link" href="https://www.meta.com/smart-glasses/" target="_blank">Meta Store →</a>
-  </div>
-</div>
-
-<div class="calculator">
-  <h4>Level 1 Kit: Vision-Only Wearable</h4>
-  <div class="calc-row">
-    <span class="label">GoPro Hero 13 + head strap</span>
-    <span class="val">$420</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">OR: RealSense D405 + 3D-printed head mount</span>
-    <span class="val">$350</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">256GB microSD card</span>
-    <span class="val">$25</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Extra batteries (GoPro) or power bank (RealSense)</span>
-    <span class="val">$40</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Level 1 Per-Kit Cost</span>
-    <span class="val">$390–$485</span>
-  </div>
-</div>
-
-<h3>Level 2: Vision + Hand Tracking (Head + Wrist Cameras)</h3>
-<p>Adds wrist-mounted cameras for detailed hand/manipulation view. Captures both the scene (what the operator sees) and the hands (what they're doing). This is the <strong>UMI-style</strong> approach.</p>
-
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">UMI Gripper / Wrist Camera Rig</div>
-    <div class="card-subtitle">Stanford open-source wrist capture system</div>
-    <div class="price">$200–400 <span class="unit">DIY build</span></div>
-    <div class="specs">
-      <span><span class="label">Design:</span> <span class="val">3D-printed wrist mount + GoPro/webcam</span></span>
-      <span><span class="label">Captures:</span> <span class="val">In-hand object view, gripper state</span></span>
-      <span><span class="label">Tracking:</span> <span class="val">ArUco markers for hand position in world frame</span></span>
-      <span><span class="label">Software:</span> <span class="val">UMI framework — open source</span></span>
-    </div>
-    <a class="buy-link" href="https://umi-gripper.github.io/" target="_blank">UMI Project →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Logitech BRIO 4K (×2, wrist-mounted)</div>
-    <div class="card-subtitle">Compact USB webcam for wrist view</div>
-    <div class="price">$130 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Resolution:</span> <span class="val">4K @ 30fps, 1080p @ 60fps</span></span>
-      <span><span class="label">FOV:</span> <span class="val">90° diagonal (adjustable)</span></span>
-      <span><span class="label">Weight:</span> <span class="val">63g — light enough for wrist mount</span></span>
-      <span><span class="label">Use:</span> <span class="val">One per wrist, strapped with velcro band</span></span>
-    </div>
-    <a class="buy-link" href="https://www.logitech.com/en-us/products/webcams/brio-4k-hdr-webcam.html" target="_blank">Logitech →</a>
-  </div>
-</div>
-
-<div class="calculator">
-  <h4>Level 2 Kit: Vision + Wrist Cameras</h4>
-  <div class="calc-row">
-    <span class="label">Head camera (GoPro 13 + strap)</span>
-    <span class="val">$420</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">2× Wrist cameras (Logitech BRIO or RealSense D405)</span>
-    <span class="val">$260–$668</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Jetson Orin Nano (belt-mounted compute)</span>
-    <span class="val">$249</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">USB-C hub + cables + wrist mounts</span>
-    <span class="val">$80</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Battery pack (for Jetson, 4+ hrs)</span>
-    <span class="val">$60</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Small backpack / belt harness</span>
-    <span class="val">$40</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Level 2 Per-Kit Cost</span>
-    <span class="val">$1,109–$1,517</span>
-  </div>
-</div>
-
-<h3>Level 3: Vision + Motion Capture (Hand + Body Tracking)</h3>
-<p>Adds motion capture gloves and body tracking. Captures <strong>full hand pose, finger articulation, and body kinematics</strong> alongside video. This is what Mark's company (Beijing integrator) builds integrated solutions for.</p>
-
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">Manus Quantum Metagloves</div>
-    <div class="card-subtitle">Motion capture data gloves — industry standard</div>
-    <div class="price">$5,000–8,000 <span class="unit">/pair (quote required)</span></div>
-    <div class="specs">
-      <span><span class="label">Tracking:</span> <span class="val">Full finger articulation (14 joints per hand)</span></span>
-      <span><span class="label">IMU:</span> <span class="val">Per-finger IMU for absolute orientation</span></span>
-      <span><span class="label">Rate:</span> <span class="val">120Hz</span></span>
-      <span><span class="label">Wireless:</span> <span class="val">Yes — Bluetooth/Wi-Fi</span></span>
-      <span><span class="label">Note:</span> <span class="val">No tactile sensing — motion only (per Mark's confirmation)</span></span>
-    </div>
-    <a class="buy-link" href="https://www.manus-meta.com/" target="_blank">Manus →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Rokoko Smartgloves</div>
-    <div class="card-subtitle">Affordable finger motion capture</div>
-    <div class="price">$1,500 <span class="unit">/pair</span></div>
-    <div class="specs">
-      <span><span class="label">Tracking:</span> <span class="val">Per-finger bend + splay</span></span>
-      <span><span class="label">Rate:</span> <span class="val">60Hz</span></span>
-      <span><span class="label">Software:</span> <span class="val">Rokoko Studio (free tier available)</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Much cheaper than Manus, good enough for many tasks</span></span>
-    </div>
-    <a class="buy-link" href="https://www.rokoko.com/products/smartgloves" target="_blank">Rokoko →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Rokoko Smartsuit Pro II</div>
-    <div class="card-subtitle">Full body motion capture suit</div>
-    <div class="price">$2,500 <span class="unit">/suit</span></div>
-    <div class="specs">
-      <span><span class="label">Sensors:</span> <span class="val">19 IMU sensors across body</span></span>
-      <span><span class="label">Tracking:</span> <span class="val">Full body pose (joint positions + orientations)</span></span>
-      <span><span class="label">Rate:</span> <span class="val">100Hz</span></span>
-      <span><span class="label">Battery:</span> <span class="val">~7 hours</span></span>
-      <span><span class="label">Use:</span> <span class="val">Captures how humans move through space while doing tasks</span></span>
-    </div>
-    <a class="buy-link" href="https://www.rokoko.com/products/smartsuit-pro" target="_blank">Rokoko →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Apple Vision Pro</div>
-    <div class="card-subtitle">High-fidelity spatial + hand tracking headset</div>
-    <div class="price">$3,499 <span class="unit">/unit</span></div>
-    <div class="specs">
-      <span><span class="label">Cameras:</span> <span class="val">12 cameras + 5 sensors + LiDAR</span></span>
-      <span><span class="label">Hand Tracking:</span> <span class="val">Sub-mm finger tracking, no gloves needed</span></span>
-      <span><span class="label">Spatial:</span> <span class="val">Full room mapping + object recognition</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">All-in-one spatial + hand capture, no external hardware</span></span>
-      <span><span class="label">Limitation:</span> <span class="val">2 hour battery, expensive, heavy for 8hr shifts</span></span>
-    </div>
-    <a class="buy-link" href="https://www.apple.com/apple-vision-pro/" target="_blank">Apple →</a>
-  </div>
-</div>
-
-<div class="calculator">
-  <h4>Level 3 Kit: Vision + Motion Capture</h4>
-  <div class="calc-row">
-    <span class="label">Head camera (GoPro 13 + strap)</span>
-    <span class="val">$420</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">2× Wrist cameras (RealSense D405)</span>
-    <span class="val">$668</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Motion capture gloves (Rokoko Smartgloves)</span>
-    <span class="val">$1,500</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Body suit (Rokoko Smartsuit Pro II) — optional</span>
-    <span class="val">$2,500</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Jetson Orin Nano (belt compute) + battery</span>
-    <span class="val">$309</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Backpack harness + cabling</span>
-    <span class="val">$100</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Level 3 Per-Kit Cost (with body suit)</span>
-    <span class="val">$5,497</span>
-  </div>
-  <div class="calc-row" style="border-bottom: none;">
-    <span class="label">Level 3 Per-Kit Cost (without body suit)</span>
-    <span class="val">$2,997</span>
-  </div>
-</div>
-
-<h3>Level 4: Full Multimodal (Vision + Motion + Tactile + Audio)</h3>
-<p>Maximum sensor density. Adds <strong>tactile sensing gloves, spatial audio, and environmental sensors</strong>. Produces the highest-value egocentric data — commands $200–500/hr pricing.</p>
-
-<div class="card-grid">
-  <div class="card recommended">
-    <div class="card-title">Custom Tactile Data Glove</div>
-    <div class="card-subtitle">Motion capture + pressure sensing (via Mark's partner)</div>
-    <div class="price">TBD <span class="unit">(quote from Mark's partner)</span></div>
-    <div class="specs">
-      <span><span class="label">Motion:</span> <span class="val">Per-finger articulation tracking</span></span>
-      <span><span class="label">Tactile:</span> <span class="val">Pressure/force sensing across palm + fingertips</span></span>
-      <span><span class="label">Combined:</span> <span class="val">Both mocap + touch in single glove</span></span>
-      <span><span class="label">Status:</span> <span class="val">Mark (Beijing integrator) building this — not public yet</span></span>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Pressure Profile Systems FingerTPS</div>
-    <div class="card-subtitle">Thin-film force sensors for fingertips</div>
-    <div class="price">$2,000–4,000 <span class="unit">/set</span></div>
-    <div class="specs">
-      <span><span class="label">Type:</span> <span class="val">Capacitive pressure sensor arrays</span></span>
-      <span><span class="label">Placement:</span> <span class="val">Stick-on pads for each fingertip</span></span>
-      <span><span class="label">Output:</span> <span class="val">Force distribution per finger</span></span>
-      <span><span class="label">Advantage:</span> <span class="val">Can be worn over/under existing gloves</span></span>
-    </div>
-    <a class="buy-link" href="https://pressureprofile.com/body-pressure-mapping" target="_blank">PPS →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Spatial Audio Rig (Binaural)</div>
-    <div class="card-subtitle">Directional audio capture</div>
-    <div class="price">$200–500 <span class="unit">/setup</span></div>
-    <div class="specs">
-      <span><span class="label">Option A:</span> <span class="val">Rode VideoMicro II ($80) — mono, head-mounted</span></span>
-      <span><span class="label">Option B:</span> <span class="val">3Dio Free Space (binaural, $200) — ear-level stereo</span></span>
-      <span><span class="label">Use:</span> <span class="val">Capture sound of manipulation (pouring, scrubbing, cutting)</span></span>
-      <span><span class="label">Value:</span> <span class="val">Audio is predictive of task state — adds to VLA model training</span></span>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Env Sensor Module (Temp + Humidity)</div>
-    <div class="card-subtitle">Environmental context capture</div>
-    <div class="price">$15–30 <span class="unit">/module</span></div>
-    <div class="specs">
-      <span><span class="label">Sensor:</span> <span class="val">BME680 (temp + humidity + pressure + gas)</span></span>
-      <span><span class="label">Rate:</span> <span class="val">1Hz (environmental changes are slow)</span></span>
-      <span><span class="label">Interface:</span> <span class="val">I2C to Jetson/Arduino</span></span>
-      <span><span class="label">Use:</span> <span class="val">Context metadata — kitchen vs outdoor vs warehouse</span></span>
-    </div>
-    <a class="buy-link" href="https://www.adafruit.com/product/3660" target="_blank">Adafruit →</a>
-  </div>
-</div>
-
-<div class="calculator">
-  <h4>Level 4 Kit: Full Multimodal Wearable</h4>
-  <div class="calc-row">
-    <span class="label">Head camera (GoPro 13 + strap)</span>
-    <span class="val">$420</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">2× Wrist cameras (RealSense D405)</span>
-    <span class="val">$668</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Manus Quantum Metagloves (motion capture)</span>
-    <span class="val">$6,000</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Fingertip force sensors (PPS FingerTPS)</span>
-    <span class="val">$3,000</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Binaural audio rig</span>
-    <span class="val">$200</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Env sensor module (BME680)</span>
-    <span class="val">$20</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Jetson AGX Orin (backpack compute — multi-stream)</span>
-    <span class="val">$1,999</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">4TB NVMe + battery pack + backpack harness</span>
-    <span class="val">$400</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Level 4 Per-Kit Cost</span>
-    <span class="val">$12,707</span>
-  </div>
-</div>
-
-<h3>Portable Kit Comparison</h3>
-<table>
-  <tr>
-    <th>Level</th>
-    <th>Sensors</th>
-    <th>Cost/Kit</th>
-    <th>Data Value</th>
-    <th>Best For</th>
-  </tr>
-  <tr>
-    <td><strong>L1: Vision-Only</strong></td>
-    <td>Head camera (RGB)</td>
-    <td class="text-accent">$390–$485</td>
-    <td>$10–30/hr</td>
-    <td>Scene understanding, navigation, object recognition</td>
-  </tr>
-  <tr>
-    <td><strong>L2: Vision + Wrist</strong></td>
-    <td>Head + 2× wrist cameras + depth</td>
-    <td class="text-accent">$1,109–$1,517</td>
-    <td>$30–80/hr</td>
-    <td>UMI-style manipulation, grasping demonstrations</td>
-  </tr>
-  <tr>
-    <td><strong>L3: + Motion Capture</strong></td>
-    <td>L2 + mocap gloves + body suit</td>
-    <td class="text-accent">$2,997–$5,497</td>
-    <td>$80–200/hr</td>
-    <td>Dexterous hand training, full-body humanoid data</td>
-  </tr>
-  <tr>
-    <td><strong>L4: Full Multimodal</strong></td>
-    <td>L3 + tactile + audio + env</td>
-    <td class="text-orange">$12,707</td>
-    <td>$200–500/hr</td>
-    <td>Premium deployment-grade data, dexterous manipulation</td>
-  </tr>
-</table>
-
-<div class="callout">
-  <strong>Deployment scenarios:</strong> L1 kits are perfect for quick deployment in restaurants, retail stores, and homes — operators just wear a camera and go about tasks naturally. L2–L3 are for structured data collection shifts where operators perform specific manipulation tasks. L4 is for high-value contracts where customers need the richest possible data.
-</div>
-
-<div class="callout warning">
-  <strong>Mark's company (Beijing integrator):</strong> They're building a combined motion-capture + tactile-sensing glove that isn't publicly available yet. This could be the best-value L3/L4 option if priced competitively. Follow up on WeChat for specs and pricing. They also mentioned having partners who can customize solutions — potentially source L2–L4 kits through them at Chinese manufacturing prices.
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SECTION 9: SHOPPING LIST SUMMARY -->
-<!-- ============================================ -->
-<section id="shopping">
-<h2><span class="num">09</span> Shopping List Summary</h2>
-<p>Quick-reference table for procurement. All quantities for full 450-station buildout.</p>
-
-<div style="overflow-x: auto;">
-<table>
-  <tr>
-    <th>Category</th>
-    <th>Item</th>
-    <th>Unit Price</th>
-    <th>Qty (Full)</th>
-    <th class="text-right">Subtotal</th>
-    <th>Vendor</th>
-  </tr>
-  <tr style="background: rgba(0,212,170,0.05);">
-    <td colspan="6" style="font-weight: 700; color: var(--accent); padding: 12px;">CAMERAS &amp; DEPTH</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Intel RealSense D435i</td>
-    <td>$334</td>
-    <td>450</td>
-    <td class="text-right">$150,300</td>
-    <td><a href="https://store.intelrealsense.com/" target="_blank">Intel</a></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Intel RealSense D405</td>
-    <td>$334</td>
-    <td>450</td>
-    <td class="text-right">$150,300</td>
-    <td><a href="https://store.intelrealsense.com/" target="_blank">Intel</a></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Intel RealSense D435i (wrist, T2 stations)</td>
-    <td>$334</td>
-    <td>90</td>
-    <td class="text-right">$30,060</td>
-    <td><a href="https://store.intelrealsense.com/" target="_blank">Intel</a></td>
-  </tr>
-  <tr style="background: rgba(0,212,170,0.05);">
-    <td colspan="6" style="font-weight: 700; color: var(--accent); padding: 12px;">COMPUTE</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>NVIDIA Jetson Orin Nano 8GB</td>
-    <td>$249</td>
-    <td>450</td>
-    <td class="text-right">$112,050</td>
-    <td><a href="https://nvidia.com" target="_blank">NVIDIA</a></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Samsung 990 Pro 2TB NVMe</td>
-    <td>$150</td>
-    <td>450</td>
-    <td class="text-right">$67,500</td>
-    <td><a href="https://samsung.com" target="_blank">Samsung</a></td>
-  </tr>
-  <tr style="background: rgba(0,212,170,0.05);">
-    <td colspan="6" style="font-weight: 700; color: var(--accent); padding: 12px;">ROBOT ARMS</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Koch v1.1 / SO-100 leader-follower pair</td>
-    <td>$500</td>
-    <td>420</td>
-    <td class="text-right">$210,000</td>
-    <td><a href="https://robotis.us/koch-v1-1-low-cost-robot-arm-leader/" target="_blank">ROBOTIS</a></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Trossen ALOHA Stationary V2 bimanual kit</td>
-    <td>$28,000</td>
-    <td>30</td>
-    <td class="text-right">$840,000</td>
-    <td><a href="https://trossenrobotics.com" target="_blank">Trossen</a></td>
-  </tr>
-  <tr style="background: rgba(0,212,170,0.05);">
-    <td colspan="6" style="font-weight: 700; color: var(--accent); padding: 12px;">SENSORS (TIER 2)</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>GelSight Mini (tactile)</td>
-    <td>$490</td>
-    <td>180</td>
-    <td class="text-right">$88,200</td>
-    <td><a href="https://gelsight.com" target="_blank">GelSight</a></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>OnRobot HEX-E (F/T sensor)</td>
-    <td>$3,500</td>
-    <td>90</td>
-    <td class="text-right">$315,000</td>
-    <td><a href="https://onrobot.com" target="_blank">OnRobot</a></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Bosch BNO085 IMU (breakout board)</td>
-    <td>$25</td>
-    <td>270</td>
-    <td class="text-right">$6,750</td>
-    <td><a href="https://adafruit.com" target="_blank">Adafruit</a></td>
-  </tr>
-  <tr style="background: rgba(0,212,170,0.05);">
-    <td colspan="6" style="font-weight: 700; color: var(--accent); padding: 12px;">DATA QUALITY</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Arduino Mega 2560 (trigger board)</td>
-    <td>$45</td>
-    <td>450</td>
-    <td class="text-right">$20,250</td>
-    <td><a href="https://store.arduino.cc" target="_blank">Arduino</a></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Trigger distribution + sync cables</td>
-    <td>$50</td>
-    <td>450</td>
-    <td class="text-right">$22,500</td>
-    <td>Various</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>PTP Grandmaster Clock</td>
-    <td>$3,500</td>
-    <td>9</td>
-    <td class="text-right">$31,500</td>
-    <td><a href="https://meinbergglobal.com" target="_blank">Meinberg</a></td>
-  </tr>
-  <tr style="background: rgba(0,212,170,0.05);">
-    <td colspan="6" style="font-weight: 700; color: var(--accent); padding: 12px;">VR / HAPTICS</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Meta Quest 3</td>
-    <td>$500</td>
-    <td>30</td>
-    <td class="text-right">$15,000</td>
-    <td><a href="https://meta.com/quest" target="_blank">Meta</a></td>
-  </tr>
-  <tr style="background: rgba(0,212,170,0.05);">
-    <td colspan="6" style="font-weight: 700; color: var(--accent); padding: 12px;">INFRASTRUCTURE</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Networking (switches, cabling, racks)</td>
-    <td>—</td>
-    <td>—</td>
-    <td class="text-right">$30,000</td>
-    <td>Cisco / Aruba</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Storage (NAS + enterprise HDDs)</td>
-    <td>—</td>
-    <td>—</td>
-    <td class="text-right">$100,000</td>
-    <td>Synology / Seagate</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Power (UPS + PDUs)</td>
-    <td>—</td>
-    <td>—</td>
-    <td class="text-right">$15,000</td>
-    <td>APC</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Workstation ergonomics (desks, chairs, monitors)</td>
-    <td>$515</td>
-    <td>450</td>
-    <td class="text-right">$231,750</td>
-    <td>Local procurement</td>
-  </tr>
-  <tr style="background: var(--surface);">
-    <td colspan="4" style="font-weight: 700; font-size: 16px; padding: 16px 12px;">GRAND TOTAL (Full 450-Station Buildout)</td>
-    <td class="text-right text-accent" style="font-size: 20px; padding: 16px 12px;">$2,217,360</td>
-    <td></td>
-  </tr>
-</table>
-</div>
-
-<div class="callout">
-  <strong>Bulk pricing:</strong> At these volumes (450 units), expect <strong>15–25% discounts</strong> from Intel, NVIDIA, Trossen, and sensor manufacturers via direct sales channels. Real cost could be <strong>$1.8M–$2.1M</strong> with negotiation.
-</div>
-
-<div class="callout info">
-  <strong>SE Asia sourcing:</strong> Workstation furniture, cabling, mounting hardware, and 3D-printed arm components can be sourced locally in Vietnam/China at <strong>40–60% of US pricing</strong>. Koch arm 3D-printed parts specifically can be manufactured locally for ~$50/set vs $200 in the US.
-</div>
-
-<!-- Interactive Station Count Slider -->
-<h3>Interactive Cost Estimator</h3>
-<div class="calculator" id="cost-calc">
-  <h4>Adjust Station Count</h4>
-  <div class="slider-group">
-    <label for="stationSlider">Station Count:</label>
-    <input type="range" id="stationSlider" min="10" max="500" value="300" step="10">
-    <span class="slider-val" id="stationCount">300</span>
-  </div>
-  <div class="slider-group">
-    <label for="tierSlider">Tier 2 Stations (%):</label>
-    <input type="range" id="tierSlider" min="0" max="100" value="20" step="5">
-    <span class="slider-val" id="tierPct">20%</span>
-  </div>
-  <div class="slider-group">
-    <label for="alohaSlider">ALOHA 2 Rigs:</label>
-    <input type="range" id="alohaSlider" min="0" max="100" value="30" step="5">
-    <span class="slider-val" id="alohaCount">30</span>
-  </div>
-  <hr style="border-color: var(--border); margin: 16px 0;">
-  <div class="calc-row">
-    <span class="label">Tier 1 base stations</span>
-    <span class="val" id="t1Cost">—</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Tier 2 sensor upgrades</span>
-    <span class="val" id="t2Cost">—</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Koch arm pairs (non-ALOHA stations)</span>
-    <span class="val" id="armCost">—</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">ALOHA 2 bimanual rigs</span>
-    <span class="val" id="alohaCost">—</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Data quality infrastructure</span>
-    <span class="val" id="dqCost">—</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Shared infrastructure (network + storage + power)</span>
-    <span class="val" id="infraCost">—</span>
-  </div>
-  <div class="calc-row">
-    <span class="label">Ergonomics (desks, chairs, monitors)</span>
-    <span class="val" id="ergoCost">—</span>
-  </div>
-  <div class="calc-row total">
-    <span class="label">Estimated Total</span>
-    <span class="val" id="totalCost">—</span>
-  </div>
-  <div class="calc-row" style="border-bottom: none;">
-    <span class="label">Est. monthly revenue (blended $80/hr, 8hr shifts, 25 days)</span>
-    <span class="val text-accent" id="monthlyRev">—</span>
-  </div>
+<section>
+<div class="wrap">
+  <div class="label">Team</div>
+  <h2>On-the-ground networks built through years of presence across Asia.</h2>
+  <p>Our founding team comes from McKinsey, Goldman Sachs, Harvard, Tsinghua, and Y Combinator. We've built deep facility relationships across Southeast Asia and India — and we already work alongside leading AI labs and robotics companies to deliver production-grade data at scale.</p>
 </div>
 </section>
 
 </main>
 
+<section class="form-section">
+<div class="wrap">
+  <div class="label">Get in touch</div>
+  <h2>Tell us what you're looking for.</h2>
+  <form action="https://formsubmit.co/phillip@allstonlabs.com" method="POST">
+    <input type="hidden" name="_subject" value="HDP Inquiry">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://hdp-specs-site.vercel.app">
+    <div class="form-grid">
+      <div class="form-field">
+        <input type="text" name="name" placeholder="Name" required>
+      </div>
+      <div class="form-field">
+        <input type="email" name="email" placeholder="Work email" required>
+      </div>
+      <div class="form-field">
+        <input type="text" name="company" placeholder="Company" required>
+      </div>
+      <div class="form-field">
+        <input type="text" name="role" placeholder="Role">
+      </div>
+      <div class="form-field">
+        <select name="environment">
+          <option value="" disabled selected style="color:var(--text-dim)">Environment type</option>
+          <option value="industrial">Industrial</option>
+          <option value="residential">Residential</option>
+          <option value="both">Both</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <select name="timeline">
+          <option value="" disabled selected style="color:var(--text-dim)">Timeline</option>
+          <option value="exploring">Exploring</option>
+          <option value="30days">Next 30 days</option>
+          <option value="quarter">Next quarter</option>
+          <option value="ongoing">Ongoing need</option>
+        </select>
+      </div>
+      <div class="form-field full">
+        <textarea name="message" placeholder="Tell us more about what you're looking for"></textarea>
+      </div>
+    </div>
+    <button type="submit" class="form-btn">Submit</button>
+  </form>
+</div>
+</section>
+
 <footer>
-  <div class="container">
-    <p style="margin-bottom: 8px;"><strong>Human Data Partnership</strong></p>
-    <p>Equipment Specification v1.0 &middot; March 2026</p>
-    <p style="margin-top: 12px; font-size: 11px; opacity: 0.5;">Confidential — For internal use and investor discussions only.</p>
-  </div>
+  <div class="wrap">&copy; 2026 Human Data Partnership</div>
 </footer>
 
 <script>
-// Scroll reveal animation
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+(function() {
+  const canvas = document.getElementById('ascii-canvas');
+  const ctx = canvas.getContext('2d');
+  const header = document.getElementById('header');
+  let W, H, dpr;
+  let mx = -1, my = -1;
+  let time = 0, frame = 0;
+
+  const FONT = 13;
+  const CW = FONT * 0.62;
+  const CH = FONT * 1.15;
+  let cols, rows, streamY, streamSpd, charGrid;
+
+  function initGrid() {
+    cols = Math.ceil(W / CW);
+    rows = Math.ceil(H / CH);
+    streamY = new Float32Array(cols);
+    streamSpd = new Float32Array(cols);
+    charGrid = [];
+    for (let c = 0; c < cols; c++) {
+      streamSpd[c] = 0.15 + Math.random() * 0.5;
+      streamY[c] = Math.random() * H;
+      const col = [];
+      for (let r = 0; r < rows + 10; r++) col.push(Math.random() > 0.5 ? '1' : '0');
+      charGrid.push(col);
     }
+  }
+
+  function resize() {
+    dpr = window.devicePixelRatio || 1;
+    W = header.clientWidth; H = header.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    initGrid();
+  }
+
+  header.addEventListener('mousemove', function(e) {
+    const r = header.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top;
   });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  header.addEventListener('mouseleave', function() { mx = my = -1; });
+  header.addEventListener('touchmove', function(e) {
+    const r = header.getBoundingClientRect(); mx = e.touches[0].clientX - r.left; my = e.touches[0].clientY - r.top;
+  }, { passive: true });
+  header.addEventListener('touchend', function() { mx = my = -1; });
 
-// Add reveal class to all sections and major elements
-document.querySelectorAll('section, .card-grid, .calculator, .callout, details, .phase-bar, .stat-grid, table').forEach(el => {
-  el.classList.add('reveal');
-  observer.observe(el);
-});
+  function render() {
+    frame++; time += 0.01;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.font = FONT + 'px "Courier New",monospace';
+    ctx.textBaseline = 'top';
 
-// Interactive cost calculator
-const stationSlider = document.getElementById('stationSlider');
-const tierSlider = document.getElementById('tierSlider');
-const alohaSlider = document.getElementById('alohaSlider');
+    const mcol = mx >= 0 ? mx / CW : -9999;
+    const mrow = mx >= 0 ? my / CH : -9999;
 
-function fmt(n) {
-  if (n >= 1000000) return '$' + (n / 1000000).toFixed(2) + 'M';
-  return '$' + n.toLocaleString();
-}
+    for (let c = 0; c < cols; c++) {
+      streamY[c] += streamSpd[c];
+      if (streamY[c] >= CH) {
+        streamY[c] -= CH;
+        charGrid[c].unshift(Math.random() > 0.5 ? '1' : '0');
+        charGrid[c].pop();
+      }
+      if (Math.random() < 0.003) {
+        const ri = Math.floor(Math.random() * rows);
+        charGrid[c][ri] = charGrid[c][ri] === '1' ? '0' : '1';
+      }
 
-function recalc() {
-  const stations = parseInt(stationSlider.value);
-  const tierPct = parseInt(tierSlider.value) / 100;
-  const alohaRigs = parseInt(alohaSlider.value);
+      for (let r = 0; r < rows; r++) {
+        // Gentle wave
+        const wave = 0.25 + 0.10 * Math.sin(c * 0.07 + time * 1.2 + r * 0.04)
+                          + 0.07 * Math.cos(r * 0.06 + time * 0.8);
 
-  document.getElementById('stationCount').textContent = stations;
-  document.getElementById('tierPct').textContent = tierSlider.value + '%';
-  document.getElementById('alohaCount').textContent = alohaRigs;
+        let a = wave;
 
-  const t2Stations = Math.round(stations * tierPct);
-  const kochArms = stations - alohaRigs;
+        // Mouse displacement + glow
+        let ox = 0, oy = 0;
+        if (mx >= 0) {
+          const dx = c - mcol, dy = r - mrow;
+          const dist = Math.sqrt(dx * dx + dy * dy * 3);
+          // Repulsion
+          if (dist < 14 && dist > 0.3) {
+            const f = Math.pow((14 - dist) / 14, 2);
+            ox = (dx / dist) * f * 16;
+            oy = (dy / dist) * f * 10;
+          }
+          // Glow
+          if (dist < 22) a += 0.35 * Math.exp(-dist * 0.09);
+        }
 
-  const t1 = stations * 1347;
-  const t2 = t2Stations * 5039;
-  const arms = Math.max(0, kochArms) * 500;
-  const aloha = alohaRigs * 28000;
-  const dq = stations * 110 + Math.ceil(stations / 50) * 10100;
-  const infra = 30000 + 100000 + 15000;
-  const ergo = stations * 515;
-  const total = t1 + t2 + arms + aloha + dq + infra + ergo;
-  const monthlyRev = stations * 80 * 8 * 25;
+        a = Math.min(0.6, Math.max(0, a));
+        if (a < 0.02) continue;
 
-  document.getElementById('t1Cost').textContent = fmt(t1);
-  document.getElementById('t2Cost').textContent = fmt(t2);
-  document.getElementById('armCost').textContent = fmt(arms);
-  document.getElementById('alohaCost').textContent = fmt(aloha);
-  document.getElementById('dqCost').textContent = fmt(dq);
-  document.getElementById('infraCost').textContent = fmt(infra);
-  document.getElementById('ergoCost').textContent = fmt(ergo);
-  document.getElementById('totalCost').textContent = fmt(total);
-  document.getElementById('monthlyRev').textContent = fmt(monthlyRev) + '/mo';
-}
+        const ch = charGrid[c][r % charGrid[c].length];
+        ctx.fillStyle = 'rgba(100,100,100,' + a.toFixed(3) + ')';
+        ctx.fillText(ch, c * CW + ox, r * CH + streamY[c] - CH + oy);
+      }
+    }
 
-stationSlider.addEventListener('input', recalc);
-tierSlider.addEventListener('input', recalc);
-alohaSlider.addEventListener('input', recalc);
+    // Soft vignette
+    const vg = ctx.createRadialGradient(W / 2, H / 2, H * 0.35, W / 2, H / 2, H * 0.9);
+    vg.addColorStop(0, 'rgba(9,9,11,0)');
+    vg.addColorStop(0.7, 'rgba(9,9,11,0.1)');
+    vg.addColorStop(1, 'rgba(9,9,11,0.35)');
+    ctx.fillStyle = vg;
+    ctx.fillRect(0, 0, W, H);
 
-// Initial calc
-recalc();
+    requestAnimationFrame(render);
+  }
 
-// Smooth scroll for TOC links
-document.querySelectorAll('nav.toc a').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
+  resize(); render();
+  window.addEventListener('resize', resize);
+})();
 </script>
 </body>
 </html>
